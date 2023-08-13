@@ -36,19 +36,19 @@ public class LoginActivity extends AppCompatActivity {
         bindingActivity.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
-                startActivity(intent);
 
-//                Integer pn = Integer.parseInt(bindingActivity.txtPN.getText().toString());
-//                String pw = bindingActivity.txtPW.getText().toString();
-//
-//                if(userDataSource.checkPNPW(pn,pw)==true){
-//                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_LONG).show();
-//
-//                }
-//                else
-//                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không đúng",Toast.LENGTH_LONG).show();
-//
+                Integer pn = Integer.parseInt(bindingActivity.txtPN.getText().toString());
+                String pw = bindingActivity.txtPW.getText().toString();
+
+                if(userDataSource.checkPNPW(pn,pw)==true){
+                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
+                    startActivity(intent);
+
+                }
+                else
+                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không đúng",Toast.LENGTH_LONG).show();
+
             }
         });
 

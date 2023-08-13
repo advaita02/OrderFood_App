@@ -9,16 +9,18 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.foodapp.Admin.AdminLoginActivity;
+import com.example.foodapp.Database.MySQLiteHelper;
 
 
 public class WelcomeActivity extends AppCompatActivity {
-
+//    MySQLiteHelper mySQLiteHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
+//        mySQLiteHelper = new MySQLiteHelper(WelcomeActivity.this);
     }
 
     public void regis(View view) {

@@ -23,8 +23,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME_CATE = "name_category";
     // table category
 
+    //table rating
+    public static final String TABLE_RATING = "rating"; // name of table
+    public static final String COLUMN_ID_RATE = "id_rating";
+    public static final String COLUMN_VALUE = "value";
+    public static final String COLUMN_COMMENT = "comment";
+    public static final String COLUMN_RATED_USER = "user_rate_id";
+    public static final String COLUMN_RATED_FOOD = "food_rate_id";
+
+    //table order
+    public static final String TABLE_ORDER = "orders"; // name of table
+    public static final String COLUMN_ID_ORDER = "id_order";
+    public static final String COLUMN_DATE = "date_order";
+    public static final String COLUMN_USER_ORDER = "order_user_id";
+
+    //TABLE order_item
+    public static final String TABLE_ORDER_ITEM = "order_item";
+    public static final String COLUMN_ID_ORDER_ITEM = "id_order_items";
+    public static final String COLUMN_ORDER = "order_order_item";
+    public static final String COLUMN_FOOD_ORDER = "food";
+    public static final String COLUMN_QUANTITY = "quantity";
+
+
     //table cus_user
-    public static final String TABLE_USER = "user";
+    public static final String TABLE_USER = "users";
     public static final String COLUMN_ID_USER = "id_user";
     public static final String COLUMN_NAME_USER = "name_user";
     public static final String COLUMN_PN_USER = "pn_user";
@@ -35,29 +57,49 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME_ADMIN = "name_admin";
     public static final String COLUMN_PW_ADMIN = "pw_admin";
 
+
+
     // SQL create table
+    private static final String ORDER_ITEM_CREATE = "create table "
+            + TABLE_ORDER_ITEM + "(" + COLUMN_ID_ORDER_ITEM + " integer primary key autoincrement, "
+            + COLUMN_ORDER + " integer references " + TABLE_ORDER + "(" + COLUMN_ID_ORDER + "), "
+            + COLUMN_FOOD_ORDER + " integer references " + TABLE_FOOD + "(" + COLUMN_ID_FOOD + "), "
+            + COLUMN_QUANTITY + " TEXT);";
+
+    private static final String ORDER_CREATE = "create table "
+            + TABLE_ORDER + "(" + COLUMN_ID_ORDER + " integer primary key autoincrement, "
+            + COLUMN_DATE + " TEXT, "
+            + COLUMN_USER_ORDER + " integer references " + TABLE_USER + "(" + COLUMN_ID_USER + "));";
+
+    private static final String RATING_CREATE = "create table "
+            + TABLE_RATING + "(" + COLUMN_ID_RATE + " integer primary key autoincrement, "
+            + COLUMN_VALUE + " integer, "
+            + COLUMN_COMMENT + " TEXT, "
+            + COLUMN_RATED_USER + " integer references " + TABLE_USER + "(" + COLUMN_ID_USER + "), "
+            + COLUMN_RATED_FOOD + " integer references " + TABLE_FOOD + "(" + COLUMN_ID_FOOD + "));";
+
     private static final String FOOD_CREATE = "create table "
             + TABLE_FOOD + "( " + COLUMN_ID_FOOD + " integer primary key autoincrement, "
             + COLUMN_NAME_FOOD + "text,"
             + COLUMN_PRICE + " integer not null, "
             + COLUMN_DESCRIBE + " text, "
-            + COLUMN_SIZE + "integer, "
-            + COLUMN_CATEGORY + "integer references " + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + "));";
+            + COLUMN_SIZE + " integer, "
+            + COLUMN_CATEGORY + " integer references " + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + "));";
 
     private static final String CATEGORY_CREATE = "create table "
             + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + " integer primary key autoincrement, "
-            + COLUMN_NAME_CATE + "text not null);";
+            + COLUMN_NAME_CATE + " text not null);";
 
     private static final String USER_CREATE = "create table "
             + TABLE_USER + "(" + COLUMN_ID_USER + " integer primary key autoincrement, "
             + COLUMN_NAME_USER + " TEXT, "
             + COLUMN_PN_USER + " integer, "
-            + COLUMN_PW_USER + " TEXT)";
+            + COLUMN_PW_USER + " TEXT);";
 
     private static final String ADMIN_CREATE = "create table "
             + TABLE_ADMIN + "(" + COLUMN_ID_ADMIN + " integer primary key autoincrement, "
             + COLUMN_NAME_ADMIN + " TEXT, "
-            + COLUMN_PW_ADMIN + " TEXT)";
+            + COLUMN_PW_ADMIN + " TEXT);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -69,6 +111,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         db.execSQL(CATEGORY_CREATE);
         db.execSQL(USER_CREATE);
         db.execSQL(ADMIN_CREATE);
+        db.execSQL(RATING_CREATE);
+        db.execSQL(ORDER_CREATE);
+        db.execSQL(ORDER_ITEM_CREATE);
     }
 
     @Override
