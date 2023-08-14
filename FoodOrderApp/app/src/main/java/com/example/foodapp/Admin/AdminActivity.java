@@ -34,6 +34,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //chinh sua cac thu
         super.onCreate(savedInstanceState);
 //        activityAdminBinding = ActivityAdminBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_admin);
