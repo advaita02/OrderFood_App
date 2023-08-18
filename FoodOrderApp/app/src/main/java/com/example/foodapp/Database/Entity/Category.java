@@ -4,6 +4,17 @@ public class Category {
     private int id;
     private String name;
 
+//    public Category(int id, String categoryName) {
+//    }
+
+    public Category() {
+
+    }
+    public Category(int id, String name_cate) {
+        this.id = id;
+        this.name = name_cate;
+    }
+
     public int getId() {
         return id;
     }
@@ -19,4 +30,7 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+//    public String getCategoryName() {
+//        return name;
+//    }
 }

@@ -53,6 +53,7 @@ public class RegisActivity extends AppCompatActivity {
                 }
             }
         });
+//        return null;
     }
 
     public void login(View view) {

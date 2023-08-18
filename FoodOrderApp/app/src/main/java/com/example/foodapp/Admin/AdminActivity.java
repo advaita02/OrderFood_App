@@ -53,6 +53,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
         replaceFragment(new ManageFoodFragment());
         navigationView.getMenu().findItem(R.id.nav_food).setChecked(true);
+//        return null;
     }
 
     @Override
