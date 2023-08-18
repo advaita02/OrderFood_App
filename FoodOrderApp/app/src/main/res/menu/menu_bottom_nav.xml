@@ -23,5 +23,6 @@
         android:id="@+id/action_profile"
         android:title="@string/action_profile"
         android:icon="@drawable/profile">
+
     </item>
 </menu>

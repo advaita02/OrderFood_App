@@ -46,7 +46,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
 
     //table cus_user
-    public static final String TABLE_USER = "users";
+    public static final String TABLE_USER = "user";
     public static final String COLUMN_ID_USER = "id_user";
     public static final String COLUMN_NAME_USER = "name_user";
     public static final String COLUMN_PN_USER = "pn_user";

@@ -15,8 +15,14 @@ import com.example.foodapp.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static Integer phoneNum;
+
     ActivityLoginBinding bindingActivity;
     UserDataSource userDataSource ;
+
+    public static Integer getPhoneNum() {
+        return phoneNum;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(userDataSource.checkPNPW(pn,pw)==true){
                     Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, ContentActivity.class);
+                    phoneNum = pn;
+
                     startActivity(intent);
 
                 }
