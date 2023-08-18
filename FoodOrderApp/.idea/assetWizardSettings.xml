@@ -304,7 +304,11 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+<<<<<<< HEAD
                                       <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/logout/baseline_logout_24.xml" />
+=======
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/image_search/baseline_image_search_24.xml" />
+>>>>>>> 162752a832fced4d8df3c7bf601a5590088a4793
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -314,8 +318,13 @@
                         </option>
                         <option name="values">
                           <map>
+<<<<<<< HEAD
                             <entry key="color" value="0c0c0c" />
                             <entry key="outputName" value="logout_24" />
+=======
+                            <entry key="color" value="5091d9" />
+                            <entry key="outputName" value="ic_image_search" />
+>>>>>>> 162752a832fced4d8df3c7bf601a5590088a4793
                             <entry key="sourceFile" value="C:\Users\DELL\Desktop\MobileProgramming" />
                           </map>
                         </option>

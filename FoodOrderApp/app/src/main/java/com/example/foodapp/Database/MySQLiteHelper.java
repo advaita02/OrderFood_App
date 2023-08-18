@@ -15,12 +15,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_DESCRIBE = "describe";
     public static final String COLUMN_SIZE = "size";
+    public static final String COLUMN_IMG_FOOD = "img_food";
     public static final String COLUMN_CATEGORY = "id_category";
 
     // table category
     public static final String TABLE_CATEGORY = "category"; // name of table
     public static final String COLUMN_ID_CATE = "id_category";
     public static final String COLUMN_NAME_CATE = "name_category";
+    public static final String COLUMN_IMG_CATE = "img_cate";
     // table category
 
     //table rating
@@ -101,6 +103,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_NAME_ADMIN + " TEXT, "
             + COLUMN_PW_ADMIN + " TEXT);";
 
+//    String themAdmin = "Insert into admin (name_admin, pw_admin) values('staff_admin', 123);";
+
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -114,6 +118,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         db.execSQL(RATING_CREATE);
         db.execSQL(ORDER_CREATE);
         db.execSQL(ORDER_ITEM_CREATE);
+//        db.execSQL(themAdmin);
     }
 
     @Override

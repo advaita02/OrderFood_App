@@ -23,7 +23,8 @@ public class FoodDataSource {
             MySQLiteHelper.COLUMN_PRICE,
             MySQLiteHelper.COLUMN_DESCRIBE,
             MySQLiteHelper.COLUMN_SIZE,
-            MySQLiteHelper.COLUMN_CATEGORY
+            MySQLiteHelper.COLUMN_CATEGORY,
+            MySQLiteHelper.COLUMN_IMG_FOOD
     };
 
     public FoodDataSource(Context context) {

@@ -11,8 +11,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+
 import com.example.foodapp.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import com.example.foodapp.Database.Adapter.PhotoAdapter;
+
 
 import me.relex.circleindicator.CircleIndicator;
 
