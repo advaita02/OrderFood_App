@@ -86,10 +86,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_PRICE + " integer not null, "
             + COLUMN_DESCRIBE + " text, "
             + COLUMN_SIZE + " integer, "
+            + COLUMN_IMG_FOOD + " BLOB, "
             + COLUMN_CATEGORY + " integer references " + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + "));";
 
     private static final String CATEGORY_CREATE = "create table "
             + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + " integer primary key autoincrement, "
+            + COLUMN_IMG_CATE + " BLOB, "
             + COLUMN_NAME_CATE + " text not null);";
 
     private static final String USER_CREATE = "create table "
