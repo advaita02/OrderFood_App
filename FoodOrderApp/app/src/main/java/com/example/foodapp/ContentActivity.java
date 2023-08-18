@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.foodapp.Database.Adapter.PhotoAdapter;
+
 import me.relex.circleindicator.CircleIndicator;
 
 public class ContentActivity extends AppCompatActivity {

@@ -3,14 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@android:color/darker_gray">
+    android:padding="20dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CATEGORY MANAGEMENT"
-        android:textColor="@color/white"
-        android:textSize="20dp"/>
+        android:text="QUẢN LÝ DANH MỤC"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_marginBottom="50dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:id="@+id/btnOpenDialogInsert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thêm danh mục"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@color/red"
+            />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listCate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
 
 </LinearLayout>

@@ -3,6 +3,13 @@ package com.example.foodapp.Database.Entity;
 public class Category {
     private int id;
     private String name;
+    private byte[] img_cate;
+
+    public Category() {}
+    public Category(String name, byte[] img_cate) {
+        this.name = name;
+        this.img_cate = img_cate;
+    }
 
     public int getId() {
         return id;
@@ -18,5 +25,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public byte[] getImg_cate() {
+        return img_cate;
+    }
+
+    public void setImg_cate(byte[] img_cate) {
+        this.img_cate = img_cate;
     }
 }
