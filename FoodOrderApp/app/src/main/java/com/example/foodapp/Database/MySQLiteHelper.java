@@ -85,7 +85,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     private static final String FOOD_CREATE = "create table "
             + TABLE_FOOD + "( " + COLUMN_ID_FOOD + " integer primary key autoincrement, "
-            + COLUMN_NAME_FOOD + "text,"
+            + COLUMN_NAME_FOOD + " text, "
             + COLUMN_PRICE + " integer not null, "
             + COLUMN_DESCRIBE + " text, "
             + COLUMN_SIZE + " integer, "

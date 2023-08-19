@@ -62,11 +62,11 @@ public class InsertCateDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         categoryDataSource = new CategoryDataSource(getActivity());
-                        editNameCate = (EditText) view.findViewById(R.id.edit_catename);
                         byte[] bytesIMGCate = convertFromDataToBytes();
 
                         categoryDataSource.createCategory(bytesIMGCate,
                                 editNameCate.getText().toString().trim());
+
                         Toast.makeText(getActivity(), "Đã thêm vào danh mục", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -78,9 +78,7 @@ public class InsertCateDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                intent.setType("image/*");
                 startActivityForResult(intent, REQUEST_CODE_FOLDER);
-//                requestPermission();
             }
         });
         return builder.create();

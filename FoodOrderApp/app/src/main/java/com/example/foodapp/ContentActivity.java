@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 //<<<<<<< HEAD
-import com.example.foodapp.Adapter.ListContentCateAdapter;
-import com.example.foodapp.Adapter.ListContentFoodAdapter;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
@@ -101,7 +99,7 @@ public class ContentActivity extends AppCompatActivity {
         mySQLiteHelper.insertFood("Bun thit nuong 4", 100, "ngon vcl");
 
         foodDataSource = new FoodDataSource(this);
-        foodDataSource.insertFood("bun thit nuong 1", 10, "good");
+//        foodDataSource.insertFood("bun thit nuong 1", 10, "good");
 
 
 

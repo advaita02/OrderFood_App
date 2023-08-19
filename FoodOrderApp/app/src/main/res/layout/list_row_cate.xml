@@ -36,28 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/view_cate_img"
             android:text="@string/app_name"
+            android:textSize="20dp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"/>
-        
-        <TextView
-            android:id="@+id/describe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="desc"
-            android:layout_below="@+id/txtNameCate"
-            android:layout_marginLeft="70dp" />
 
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Số lượng"
-            android:layout_below="@+id/txtNameCate"
-            android:layout_marginLeft="200dp"
-            />
 
     </RelativeLayout>
 
