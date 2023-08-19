@@ -11,6 +11,21 @@ public class Food {
     private byte[] imgFood;
     private Category category;
 
+    public Food(int id,  String name_food, String des_food, int price_food) {
+        this.id = id;
+        this.name = name_food;
+        this.describe = des_food;
+        this.price = price_food;
+    }
+    public Food(String name_food, String des_food, int price_food) {
+        this.name = name_food;
+        this.describe = des_food;
+        this.price = price_food;
+    }
+    public Food() {
+
+    }
+
     @NonNull
     @Override
     public String toString() {

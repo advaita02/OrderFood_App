@@ -11,6 +11,15 @@ public class Category {
         this.img_cate = img_cate;
     }
 
+//    public Category(int id, String categoryName) {
+//    }
+
+
+    public Category(int id, String name_cate) {
+        this.id = id;
+        this.name = name_cate;
+    }
+
     public int getId() {
         return id;
     }
@@ -26,6 +35,9 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+//    public String getCategoryName() {
+//        return name;
+//    }
 
     public byte[] getImg_cate() {
         return img_cate;

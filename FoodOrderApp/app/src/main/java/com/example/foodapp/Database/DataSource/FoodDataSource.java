@@ -59,6 +59,26 @@ public class FoodDataSource {
         cursor.close();
         return newFood;
     }
+
+    public Food insertFood(String name, int price, String describe) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME_FOOD, name);
+        values.put(MySQLiteHelper.COLUMN_PRICE, price);
+        values.put(MySQLiteHelper.COLUMN_DESCRIBE, describe);
+
+
+        // add data to Food table
+        long insertId = database.insert(MySQLiteHelper.TABLE_FOOD, null, values);
+
+        // Get and return data
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_FOOD,
+                allColumns, MySQLiteHelper.COLUMN_ID_FOOD + " = " + insertId, null
+                ,null, null, null);
+        cursor.moveToFirst();
+        Food newFood = cursorToFood(cursor);
+        cursor.close();
+        return newFood;
+    }
     public void deleteFood(Food food) {
          long id = food.getId();
          System.out.println("Comment deleted with id: " + id);

@@ -13,7 +13,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
+//        compileSdkVersion 23
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -35,6 +35,26 @@ android {
         viewBinding true
         compose true
     }
+    buildscript {
+        ext {
+            buildToolsVersion = "32.0.0"
+            compose_compiler = '1.3.1'         //compiler
+            compose_version = '1.3.0-beta02'   //compose dependencies
+            compose_material3 = '1.0.0-beta02' //material3 release
+            kotlinVersion = "1.8.0"
+        }
+        repositories {
+            maven {
+                url "https://maven.google.com"
+            }
+
+            jcenter()
+        }
+        dependencies {
+            //noinspection GradlePluginVersion
+            classpath 'com.android.tools.build:gradle:3.0.0'
+        }
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -42,10 +62,24 @@ android {
         kotlinCompilerExtensionVersion '1.3.2'
     }
     packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libfbjni.so'
+        exclude 'path/to/conflicting/classes'
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    configurations.all {
+        resolutionStrategy {
+            eachDependency {
+                if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
+                    useVersion("1.8.0")
+                }
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -60,22 +94,32 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
-
+//    implementation 'com.google.android.gms:play-services-maps:18.1.0:21.0.1'
+//    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "androidx.compose.material:material:1.3.0-beta02"
+    implementation "androidx.compose.material3:material3:1.0.0-beta02"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.activity:activity-compose:1.5.1'
-    implementation platform('androidx.compose:compose-bom:2022.10.00')
+
+
+//    implementation platform('androidx.compose:compose-bom:2022.10.00')
+
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+//    testImplementation 'junit:junit:4.13.2'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
     androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    debugImplementation "androidx.compose.ui:ui-tooling:1.0.0-rc01"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.0.0-rc01"
 
 }

@@ -1,7 +1,10 @@
 package com.example.foodapp.Database;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.nfc.Tag;
 import android.util.Log;
 public class MySQLiteHelper extends SQLiteOpenHelper{
     // database
@@ -131,4 +134,35 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         onCreate(db);
     }
+
+    public Cursor GetData (String sql) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery(sql, null);
+    }
+
+    public void insertCategory(String categoryName) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME_CATE, categoryName);
+        sqLiteDatabase.insert(TABLE_CATEGORY, null, values);
+        sqLiteDatabase.close();
+    }
+
+    public void insertFood(String nameFood, int priceFood, String desFood) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME_FOOD, nameFood);
+        values.put(MySQLiteHelper.COLUMN_PRICE, priceFood);
+        values.put(MySQLiteHelper.COLUMN_DESCRIBE, desFood);
+        sqLiteDatabase.insert(TABLE_FOOD, null, values);
+        sqLiteDatabase.close();
+    }
+
+    public void deleteAllCate() {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_CATEGORY,null, null);
+        sqLiteDatabase.close();
+    }
+
+
 }
