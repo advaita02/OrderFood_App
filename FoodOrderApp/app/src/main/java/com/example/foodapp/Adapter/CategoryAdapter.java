@@ -1,0 +1,113 @@
+package com.example.foodapp.Adapter;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.foodapp.Database.DataSource.CategoryDataSource;
+import com.example.foodapp.Database.Entity.Category;
+import com.example.foodapp.R;
+
+import java.util.ArrayList;
+
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+    private Context mContext;
+    int singleData;
+    ArrayList<Category> categories;
+    CategoryDataSource categoryDataSource;
+
+    public CategoryAdapter(Context mContext, int singleData, ArrayList<Category> categories, CategoryDataSource categoryDataSource) {
+        this.mContext = mContext;
+        this.singleData = singleData;
+        this.categories = categories;
+        this.categoryDataSource = categoryDataSource;
+    }
+
+    @NonNull
+    @Override
+    public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = inflater.inflate(R.layout.list_row_cate, null);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
+        final Category category = categories.get(position);
+        byte[] img = category.getImg_cate();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        holder.imageCate.setImageBitmap(bitmap);
+        holder.txtNameCate.setText(category.getName());
+
+        // flow menu
+        holder.flow_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(mContext, holder.flow_menu);
+                popupMenu.inflate(R.menu.flow_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.edit_menu:
+                                //sua cate
+                                break;
+                            case R.id.delete_menu:
+                                //xoa cate
+                            default:
+                                return false;
+                        }
+                        return false;
+                    }
+                });
+                //hien thi menu
+                popupMenu.show();
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return categories.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageCate;
+        TextView txtNameCate;
+        ImageButton flow_menu;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageCate = (ImageView) itemView.findViewById(R.id.view_cate_img);
+            txtNameCate = (TextView) itemView.findViewById(R.id.txtNameCate);
+            flow_menu = (ImageButton) itemView.findViewById(R.id.flowmenu);
+        }
+    }
+
+//    @NonNull
+//    @Override
+//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//
+//        byte[] img = getItem(position).getImg_cate();
+//        Category category = new Category(txtName)
+////        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+////        convertView = layoutInflater.inflate(mResource, parent, false);
+////
+////        ImageView imageView = convertView.findViewById(R.id.image);
+////        TextView txtName = convertView.findViewById(R.id.txtNameCate);
+////
+////        imageView.setImageResource(getItem(position).getImg_cate());
+////        txtName.setText(getItem(position).getName());
+////        return convertView;
+//    }
+}

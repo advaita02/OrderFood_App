@@ -15,7 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.foodapp.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import com.example.foodapp.Database.Adapter.PhotoAdapter;
+import com.example.foodapp.Adapter.PhotoAdapter;
 
 
 import me.relex.circleindicator.CircleIndicator;

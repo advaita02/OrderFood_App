@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/flowmenu"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="Sửa và xoá data"
+            android:src="@drawable/more_vert_manage"/>
+
+        <ImageView
+            android:id="@+id/view_cate_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:paddingLeft="5dp"
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/txtNameCate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/view_cate_img"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
+        
+        <TextView
+            android:id="@+id/describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="desc"
+            android:layout_below="@+id/txtNameCate"
+            android:layout_marginLeft="70dp" />
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Số lượng"
+            android:layout_below="@+id/txtNameCate"
+            android:layout_marginLeft="200dp"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

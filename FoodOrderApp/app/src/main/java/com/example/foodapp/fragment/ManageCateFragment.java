@@ -1,31 +1,32 @@
 package com.example.foodapp.fragment;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodapp.Database.Adapter.CategoryAdapter;
+import com.example.foodapp.Adapter.CategoryAdapter;
+import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.R;
 import com.example.foodapp.fragment.dialog.InsertCateDialog;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 public class ManageCateFragment extends Fragment implements AdapterView.OnItemClickListener {
-    ListView listView;
+    RecyclerView recyclerView;
+    CategoryDataSource categoryDataSource;
+    CategoryAdapter categoryAdapter;
     Button buttonOpenDialogInsert;
     @Nullable
     @Override
@@ -36,8 +37,7 @@ public class ManageCateFragment extends Fragment implements AdapterView.OnItemCl
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<Category> listCategory = new ArrayList<>();
-        listView = (ListView) view.findViewById(R.id.listCate);
+
         buttonOpenDialogInsert = (Button) view.findViewById(R.id.btnOpenDialogInsert);
         buttonOpenDialogInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +46,10 @@ public class ManageCateFragment extends Fragment implements AdapterView.OnItemCl
             }
         });
 
-//        listCategory.add(new Category("Bánh mì/Sandwich", R.drawable.banhmi));
-//        listCategory.add(new Category("Bánh mì/Sandwich", R.drawable.banhmi));
+        recyclerView = (RecyclerView) view.findViewById(R.id.listView);
+        displayCates();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), R.layout.list_row, listCategory);
-        listView.setAdapter(categoryAdapter);
-        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -64,4 +62,27 @@ public class ManageCateFragment extends Fragment implements AdapterView.OnItemCl
         insertCateDialog.show(getActivity().getSupportFragmentManager(), "insert cate dialog");
     }
 
+    public void displayCates() {
+        categoryDataSource = new CategoryDataSource(getActivity());
+        Cursor cursor = categoryDataSource.getAllCategories();
+        ArrayList<Category> listCategory = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(0);
+            byte[] img = cursor.getBlob(1);
+            String nameCate = cursor.getString(2);
+
+            listCategory.add(new Category(nameCate, img));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        categoryAdapter = new CategoryAdapter(getActivity(), R.layout.list_row_cate, listCategory, categoryDataSource);
+        recyclerView.setAdapter(categoryAdapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        categoryDataSource.close();
+    }
 }

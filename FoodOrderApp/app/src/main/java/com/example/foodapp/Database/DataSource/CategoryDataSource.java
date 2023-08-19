@@ -51,6 +51,7 @@ public class CategoryDataSource {
     }
 
     public Cursor getAllCategories() {
+        open();
         return database.query(MySQLiteHelper.TABLE_CATEGORY, null,
                 null, null, null, null, null);
     }
