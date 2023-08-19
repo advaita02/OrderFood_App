@@ -84,9 +84,6 @@ public class InsertCateDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-//    private void requestPermission() {
-//
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

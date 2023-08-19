@@ -2,6 +2,7 @@ package com.example.foodapp.fragment.dialog;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,7 @@ import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.Entity.Food;
+import com.example.foodapp.Database.MySQLiteHelper;
 import com.example.foodapp.R;
 
 import java.io.ByteArrayOutputStream;
@@ -50,6 +53,8 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
     private final int REQUEST_CODE_FOLDER = 100;
     private ImageButton imgButton;
     private ImageView imgView;
+    private ImageView imgSpinner;
+    private TextView textNameCateSpinner;
     private Uri seletedImage;
     Bitmap imageTostore;
     FoodDataSource foodDataSource;
@@ -57,6 +62,7 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
     CategorySpinnerAdapter spinnerAdapter;
 
 
+    @SuppressLint("MissingInflatedId")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -82,7 +88,7 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
                                 Integer.parseInt(price.getText().toString()),
                                 editTextDescription.getText().toString().trim(),
                                 1,
-                                bytesIMGFood, category
+                                bytesIMGFood, category.getId()
                         );
                         Toast.makeText(getActivity(), "Đã thêm food", Toast.LENGTH_SHORT).show();
                         foodDataSource.close();
@@ -93,6 +99,8 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
         price = (EditText) view.findViewById(R.id.edit_price);
         editTextDescription = (EditText) view.findViewById(R.id.edit_describe);
         imgView = (ImageView) view.findViewById(R.id.img_food);
+        imgSpinner = (ImageView) view.findViewById(R.id.view_cate_img_spinner);
+        textNameCateSpinner = (TextView) view.findViewById(R.id.txtNameCate_spinner);
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +145,7 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
             int id = cursor.getInt(0);
             byte[] img = cursor.getBlob(1);
             String nameCate = cursor.getString(2);
-            listCategory.add(new Category(nameCate, img));
+            listCategory.add(new Category(id, nameCate, img));
             cursor.moveToNext();
         }
         cursor.close();
@@ -157,4 +165,5 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
             }
         });
     }
+
 }

@@ -39,26 +39,18 @@ public class FoodDataSource {
         dbHelper.close();
     }
 
-    public Food insertFood(String name, int price, String describe, int size, byte[] img, Category category) {
+    public long insertFood(String name, int price, String description, int size, byte[] image, int categoryId) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_NAME_FOOD, name);
         values.put(MySQLiteHelper.COLUMN_PRICE, price);
-        values.put(MySQLiteHelper.COLUMN_DESCRIBE, describe);
+        values.put(MySQLiteHelper.COLUMN_DESCRIBE, description);
         values.put(MySQLiteHelper.COLUMN_SIZE, size);
-        values.put(MySQLiteHelper.COLUMN_IMG_FOOD, img);
-        values.put(MySQLiteHelper.COLUMN_CATEGORY, category.getId());
+        values.put(MySQLiteHelper.COLUMN_IMG_FOOD, image);
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, categoryId);
 
-    // add data to Food table
-        long insertId = database.insert(MySQLiteHelper.TABLE_FOOD, null, values);
+        long insertedId = database.insert(MySQLiteHelper.TABLE_FOOD, null, values);
 
-    // Get and return data
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FOOD,
-                allColumns, MySQLiteHelper.COLUMN_ID_FOOD + " = " + insertId, null
-                ,null, null, null);
-        cursor.moveToFirst();
-        Food newFood = cursorToFood(cursor);
-        cursor.close();
-        return newFood;
+        return insertedId;
     }
 
     public int updateFood(long foodId, String name, int price, String description, int size, byte[] image, int categoryId) {

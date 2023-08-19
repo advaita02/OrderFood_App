@@ -11,14 +11,16 @@ public class Category {
         this.img_cate = img_cate;
     }
 
-//    public Category(int id, String categoryName) {
-//    }
+    public Category(int id, String categoryName) {
+    }
 
 
-    public Category(int id, String name_cate) {
+    public Category(int id, String name_cate, byte[] img_cate) {
         this.id = id;
         this.name = name_cate;
+        this.img_cate = img_cate;
     }
+
 
     public int getId() {
         return id;

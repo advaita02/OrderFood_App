@@ -39,14 +39,15 @@ public class CategorySpinnerAdapter extends ArrayAdapter<Category> {
     }
 
     private View initView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_row_cate, parent, false
+                    R.layout.layout_spinner_row_cate, parent, false
             );
         }
 
-        ImageView imageView = convertView.findViewById(R.id.view_cate_img);
-        TextView txtName = convertView.findViewById(R.id.txtNameCate);
+        ImageView imageView = convertView.findViewById(R.id.view_cate_img_spinner);
+        TextView txtName = convertView.findViewById(R.id.txtNameCate_spinner);
         Category currentCate = getItem(position);
 
         // Chuyển đổi byte[] thành Bitmap
