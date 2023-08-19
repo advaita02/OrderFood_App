@@ -14,8 +14,4 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.FoodApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.FoodApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>

@@ -1,19 +1,27 @@
 package com.example.foodapp;
 
+import static androidx.databinding.DataBindingUtil.setContentView;
+
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
+//<<<<<<< HEAD
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+//=======
+//>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+//<<<<<<< HEAD
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
@@ -22,6 +30,14 @@ import com.example.foodapp.Database.MySQLiteHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+//=======
+
+import com.example.foodapp.fragment.ProfileFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import com.example.foodapp.Database.Adapter.PhotoAdapter;
+
+//>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -29,18 +45,26 @@ public class ContentActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
     private PhotoAdapter photoAdapter;
+//<<<<<<< HEAD
     private RecyclerView rvcListContent;
     private ListContentCateAdapter listContentAdapter;
     private ListContentFoodAdapter listContentFoodAdapter;
     private CategoryDataSource categoryDataSource;
     private FoodDataSource foodDataSource;
     private MySQLiteHelper mySQLiteHelper;
+//=======
+    BottomNavigationView bottomNavigationView;
+
+//>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_content);
+        setContentView(R.layout.activity_content);
+        //switch view khi dung navbar
+        bottomNavigationView = findViewById(R.id.bottom_nav);
 
+//<<<<<<< HEAD
         ViewPager viewPager = findViewById(R.id.viewPager);
         int[] imageIds = {R.drawable.qc1, R.drawable.qc2, R.drawable.qc3, R.drawable.qc4};
         PhotoAdapter adapter = new PhotoAdapter(this, imageIds);
@@ -53,12 +77,9 @@ public class ContentActivity extends AppCompatActivity {
 
 
 
-        edittext_fragment_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment_address = new AddressFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_address_pickup, fragment_address, null).commit();
-            }
+        edittext_fragment_address.setOnClickListener(v -> {
+            Fragment fragment_address = new AddressFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_address_pickup, fragment_address, null).commit();
         });
 
 //        mySQLiteHelper = new MySQLiteHelper(this);
@@ -156,4 +177,78 @@ public class ContentActivity extends AppCompatActivity {
         return list;
     }
 
+//=======
+//        bottomNavigationView.setOnItemSelectedListener(item -> {
+//
+//            switch (item.getItemId()){
+//                case R.id.action_home:
+//                    break;
+//                case R.id.action_order:
+//                    break;
+//                case R.id.action_notify:
+//                    break;
+//                case R.id.action_profile:
+//                    replaceFragment(new ProfileFragment());
+//                    break;
+//            }
+//
+//            return true;
+//        });
+
+//        ViewPager viewPager = findViewById(R.id.viewPager);
+//        int[] imageIds = {R.drawable.qc1, R.drawable.qc2, R.drawable.qc3, R.drawable.qc4};
+//        PhotoAdapter adapter = new PhotoAdapter(this, imageIds);
+//        viewPager.setAdapter(adapter);
+//        viewPager.setId(R.id.view_pager);
+
+//        Button edittext_fragment_address;
+//        ImageView imgAddress_iconDown;
+//        ImageView imgAdress_iconLocation;
+//
+//        edittext_fragment_address = findViewById(R.id.edittext_fragment_address);
+//        imgAdress_iconLocation = findViewById(R.id.icon_location);
+//        imgAddress_iconDown = findViewById(R.id.address_icon_down);
+//
+//
+//
+//        edittext_fragment_address.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment fragment_address = new AddressFragment();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_address_pickup, fragment_address, null).commit();
+////                BottomNavigationView bottomNavigationView = new BottomNavigationView();
+////                bottomNavigationView.findViewById(R.id.bottom_nav).setVisibility(View.INVISIBLE);
+//            }
+//        });
+////        imgAdress_iconLocation.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_address_pickup, new AddressFragment(), null).commit();
+////            }
+////        });
+////        imgAddress_iconDown.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                FragmentManager fragmentManager = getSupportFragmentManager();
+////                fragmentManager.beginTransaction()
+////                        .replace(R.id.fragment_address_pickup,new AddressFragment(), null)
+////                        .setReorderingAllowed(true)
+////                        .addToBackStack("name") // Name can be null
+////                        .commit();            }
+////        });
+
+//    }
+    public void FragmentAdd(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_address_pickup, new AddressFragment()).commit();
+    }
+
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.layoutMain,fragment);
+        fragmentTransaction.commit();
+    }
+//>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
 }

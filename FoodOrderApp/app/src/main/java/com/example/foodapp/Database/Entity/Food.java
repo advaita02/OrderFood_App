@@ -8,6 +8,7 @@ public class Food {
     private int price;
     private String describe;
     private int size;
+    private byte[] imgFood;
     private Category category;
 
     public Food(int id,  String name_food, String des_food, int price_food) {
@@ -77,5 +78,13 @@ public class Food {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public byte[] getImgFood() {
+        return imgFood;
+    }
+
+    public void setImgFood(byte[] imgFood) {
+        this.imgFood = imgFood;
     }
 }

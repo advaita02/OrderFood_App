@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.foodapp.R;
-import com.example.foodapp.databinding.ActivityAdminBinding;
 import com.example.foodapp.fragment.ManageCateFragment;
 import com.example.foodapp.fragment.ManageFoodFragment;
 import com.example.foodapp.fragment.ManageOrderFragment;
@@ -29,8 +28,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
     private int mCurrentFrag = FRAGMENT_FOOD;
     private DrawerLayout mDrawerLayout;
-
-    ActivityAdminBinding activityAdminBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -18,12 +18,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_DESCRIBE = "describe";
     public static final String COLUMN_SIZE = "size";
+    public static final String COLUMN_IMG_FOOD = "img_food";
     public static final String COLUMN_CATEGORY = "id_category";
 
     // table category
     public static final String TABLE_CATEGORY = "category"; // name of table
     public static final String COLUMN_ID_CATE = "id_category";
     public static final String COLUMN_NAME_CATE = "name_category";
+    public static final String COLUMN_IMG_CATE = "img_cate";
     // table category
 
     //table rating
@@ -49,7 +51,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
 
     //table cus_user
-    public static final String TABLE_USER = "users";
+    public static final String TABLE_USER = "user";
     public static final String COLUMN_ID_USER = "id_user";
     public static final String COLUMN_NAME_USER = "name_user";
     public static final String COLUMN_PN_USER = "pn_user";
@@ -87,10 +89,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_PRICE + " integer not null, "
             + COLUMN_DESCRIBE + " text, "
             + COLUMN_SIZE + " integer, "
+            + COLUMN_IMG_FOOD + " BLOB, "
             + COLUMN_CATEGORY + " integer references " + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + "));";
 
     private static final String CATEGORY_CREATE = "create table "
             + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + " integer primary key autoincrement, "
+            + COLUMN_IMG_CATE + " BLOB, "
             + COLUMN_NAME_CATE + " text not null);";
 
     private static final String USER_CREATE = "create table "
@@ -103,6 +107,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + TABLE_ADMIN + "(" + COLUMN_ID_ADMIN + " integer primary key autoincrement, "
             + COLUMN_NAME_ADMIN + " TEXT, "
             + COLUMN_PW_ADMIN + " TEXT);";
+
+//    String themAdmin = "Insert into admin (name_admin, pw_admin) values('staff_admin', 123);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -117,6 +123,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         db.execSQL(RATING_CREATE);
         db.execSQL(ORDER_CREATE);
         db.execSQL(ORDER_ITEM_CREATE);
+//        db.execSQL(themAdmin);
     }
 
     @Override

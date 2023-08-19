@@ -1,9 +1,11 @@
 package com.example.foodapp.Database.DataSource;
 
+import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_NAME_USER;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_PN_USER;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_PW_USER;
 import static com.example.foodapp.Database.MySQLiteHelper.TABLE_USER;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -87,16 +89,6 @@ public class UserDataSource {
         return user;
     }
 
-    //    public Boolean checkPN(String pn){
-//        Cursor cursor = database.rawQuery("select * from " + TABLE_USER +" where "+ COLUMN_PN_USER
-//        +" = ?",new String[]{pn});
-//
-//        if(cursor.getCount()>0)
-//            return true;
-//        else
-//            return false;
-//
-//    }
     public boolean checkPN(Integer pn) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] columns = {COLUMN_PN_USER};
@@ -126,6 +118,21 @@ public class UserDataSource {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+    public String loginInfo(Integer pn){
+        SQLiteDatabase db = this.dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_USER + " where " + COLUMN_PN_USER
+                + " = ? ", new String[]{Integer.toString(pn)});
+
+        if (cursor.moveToFirst()) {
+            @SuppressLint("Range")
+            String userName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_USER));
+            cursor.close();
+            return userName;
+        } else {
+            cursor.close();
+            return null;
         }
     }
 
