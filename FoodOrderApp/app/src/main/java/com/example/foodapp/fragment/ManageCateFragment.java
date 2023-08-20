@@ -19,7 +19,7 @@ import com.example.foodapp.Adapter.CategoryAdapter;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.R;
-import com.example.foodapp.fragment.dialog.InsertCateDialog;
+import com.example.foodapp.fragment.dialog.CateDialog;
 
 import java.util.ArrayList;
 
@@ -58,8 +58,8 @@ public class ManageCateFragment extends Fragment implements AdapterView.OnItemCl
     }
 
     public void openDialogInsert() {
-        InsertCateDialog insertCateDialog = new InsertCateDialog();
-        insertCateDialog.show(getActivity().getSupportFragmentManager(), "insert cate dialog");
+        CateDialog cateDialog = new CateDialog();
+        cateDialog.show(getActivity().getSupportFragmentManager(), "insert cate dialog");
     }
 
     public void displayCates() {

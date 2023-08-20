@@ -1,12 +1,12 @@
 package com.example.foodapp.fragment.dialog;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Intent.getIntent;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,17 +25,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.foodapp.Adapter.CategoryAdapter;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
-import com.example.foodapp.Database.MySQLiteHelper;
 import com.example.foodapp.R;
-import com.example.foodapp.databinding.LayoutDialogInsertcateBinding;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class InsertCateDialog extends AppCompatDialogFragment {
+public class CateDialog extends AppCompatDialogFragment {
     private EditText editNameCate;
     private ImageButton imgButton;
     private ImageView imgView;
@@ -43,6 +41,25 @@ public class InsertCateDialog extends AppCompatDialogFragment {
     Bitmap imageTostore;
     private final int REQUEST_CODE_FOLDER = 100;
     CategoryDataSource categoryDataSource;
+    CategoryAdapter adapter;
+
+    private int categoryId;
+    private String categoryName;
+    private byte[] categoryImg;
+
+    public CateDialog() {
+        // Required empty constructor
+    }
+
+    public static CateDialog newInstance(int id, String name, byte[] img) {
+        CateDialog dialog = new CateDialog();
+        Bundle args = new Bundle();
+        args.putInt("id", id);
+        args.putString("name", name);
+        args.putByteArray("img", img);
+        dialog.setArguments(args);
+        return dialog;
+    }
 
     @NonNull
     @Override
@@ -51,6 +68,10 @@ public class InsertCateDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = (LayoutInflater) getActivity()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.layout_dialog_insertcate, null);
+
+
+//        CategoryAdapter adapter = new CategoryAdapter(requireFragmentManager());
+//        updateCate();
 
         builder.setView(view).setTitle("THÊM DANH MỤC")
                 .setNegativeButton("Huỷ", new DialogInterface.OnClickListener() {
@@ -80,6 +101,21 @@ public class InsertCateDialog extends AppCompatDialogFragment {
             }
         });
         return builder.create();
+    }
+
+    private void updateCate() {
+        Bundle args = getArguments();
+        if (args != null) {
+            categoryId = args.getInt("id");
+            categoryName = getArguments().getString("name");
+            categoryImg = getArguments().getByteArray("img");
+
+            editNameCate.setText(categoryName);
+            if (categoryImg != null) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(categoryImg, 0, categoryImg.length);
+                imgView.setImageBitmap(bitmap);
+            }
+        }
     }
 
 

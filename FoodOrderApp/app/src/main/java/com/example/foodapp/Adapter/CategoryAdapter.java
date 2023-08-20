@@ -1,6 +1,7 @@
 package com.example.foodapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -14,11 +15,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.R;
+import com.example.foodapp.fragment.dialog.CateDialog;
 
 import java.util.ArrayList;
 
@@ -27,12 +30,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     int singleData;
     ArrayList<Category> categories;
     CategoryDataSource categoryDataSource;
+    private FragmentManager fragmentManager;
 
     public CategoryAdapter(Context mContext, int singleData, ArrayList<Category> categories, CategoryDataSource categoryDataSource) {
         this.mContext = mContext;
         this.singleData = singleData;
         this.categories = categories;
         this.categoryDataSource = categoryDataSource;
+    }
+
+    public CategoryAdapter(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -47,9 +55,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         final Category category = categories.get(position);
         byte[] img = category.getImg_cate();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-        holder.imageCate.setImageBitmap(bitmap);
-        holder.txtNameCate.setText(category.getName());
+        if (img != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+            holder.imageCate.setImageBitmap(bitmap);
+            holder.txtNameCate.setText(category.getName());
+        }
 
         // flow menu
         holder.flow_menu.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +72,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_menu:
-                                //sua cate
+//                                 Sửa cate
 //                                Bundle bundle = new Bundle();
-//                                bundle.putInt("id",category.getId());
-//                                bundle.putByteArray("");
+//                                bundle.putInt("id", category.getId());
+//                                bundle.putString("name", category.getName());
+//                                bundle.putByteArray("img", category.getImg_cate());
+//
+//                                CateDialog cateDialog = CateDialog.newInstance(category.getId(), category.getName(), category.getImg_cate());
+//                                cateDialog.setArguments(bundle); // Truyền dữ liệu vào hộp thoại
+//                                fragmentManager = cateDialog.getFragmentManager();
+//                                fragmentManager = cateDialog.requireFragmentManager();
+//                                cateDialog.show(fragmentManager, "cate_dialog_tag");
                                 break;
                             case R.id.delete_menu:
                                 //xoa cate

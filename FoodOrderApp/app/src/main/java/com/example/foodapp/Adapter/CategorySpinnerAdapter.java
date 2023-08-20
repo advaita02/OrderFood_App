@@ -53,8 +53,10 @@ public class CategorySpinnerAdapter extends ArrayAdapter<Category> {
         // Chuyển đổi byte[] thành Bitmap
         if(currentCate != null) {
             byte[] imageData = currentCate.getImg_cate(); // Đây là dữ liệu hình ảnh dạng byte[]
-            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-            imageView.setImageBitmap(bitmap);
+            if (imageData != null && imageData.length > 0) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+                imageView.setImageBitmap(bitmap);
+            }
             txtName.setText(currentCate.getName());
         }
         return convertView;

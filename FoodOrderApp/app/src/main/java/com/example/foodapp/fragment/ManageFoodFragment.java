@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.Adapter.AdminFoodAdapter;
-import com.example.foodapp.Adapter.CategoryAdapter;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.Entity.Food;
 import com.example.foodapp.R;
-import com.example.foodapp.fragment.dialog.InsertCateDialog;
 import com.example.foodapp.fragment.dialog.InsertFoodDialog;
 
 import java.util.ArrayList;
