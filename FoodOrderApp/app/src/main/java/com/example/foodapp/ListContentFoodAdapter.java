@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodapp.Adapter.FoodAdapter;
+
 import java.util.List;
 
 public class ListContentFoodAdapter extends RecyclerView.Adapter<ListContentFoodAdapter.ListContentFoodViewHolder>{
@@ -64,9 +66,7 @@ public class ListContentFoodAdapter extends RecyclerView.Adapter<ListContentFood
 
         public ListContentFoodViewHolder(@NonNull View itemView) {
             super(itemView);
-
             name_item_food = (TextView) itemView.findViewById(R.id.tv_name_content_food);
-
             rcvItem_food = (RecyclerView) itemView.findViewById(R.id.rcv_content_food);
         }
     }

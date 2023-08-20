@@ -94,13 +94,7 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
                         foodDataSource.close();
                     }
                 });
-        imgButton = (ImageButton) view.findViewById(R.id.img_button_folder_food);
-        editTextName = (EditText) view.findViewById(R.id.edit_food_name);
-        price = (EditText) view.findViewById(R.id.edit_price);
-        editTextDescription = (EditText) view.findViewById(R.id.edit_describe);
-        imgView = (ImageView) view.findViewById(R.id.img_food);
-        imgSpinner = (ImageView) view.findViewById(R.id.view_cate_img_spinner);
-        textNameCateSpinner = (TextView) view.findViewById(R.id.txtNameCate_spinner);
+        mapping(view);
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,6 +158,16 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
 
             }
         });
+    }
+
+    public void mapping(View view) {
+        imgButton = (ImageButton) view.findViewById(R.id.img_button_folder_food);
+        editTextName = (EditText) view.findViewById(R.id.edit_food_name);
+        price = (EditText) view.findViewById(R.id.edit_price);
+        editTextDescription = (EditText) view.findViewById(R.id.edit_describe);
+        imgView = (ImageView) view.findViewById(R.id.img_food);
+        imgSpinner = (ImageView) view.findViewById(R.id.view_cate_img_spinner);
+        textNameCateSpinner = (TextView) view.findViewById(R.id.txtNameCate_spinner);
     }
 
 }

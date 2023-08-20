@@ -37,9 +37,7 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-//    public String getCategoryName() {
-//        return name;
-//    }
+
 
     public byte[] getImg_cate() {
         return img_cate;

@@ -23,8 +23,8 @@ public class FoodDataSource {
             MySQLiteHelper.COLUMN_PRICE,
             MySQLiteHelper.COLUMN_DESCRIBE,
             MySQLiteHelper.COLUMN_SIZE,
-            MySQLiteHelper.COLUMN_CATEGORY,
-            MySQLiteHelper.COLUMN_IMG_FOOD
+            MySQLiteHelper.COLUMN_IMG_FOOD,
+            MySQLiteHelper.COLUMN_CATEGORY
     };
 
     public FoodDataSource(Context context) {
@@ -71,34 +71,8 @@ public class FoodDataSource {
          database.delete(MySQLiteHelper.TABLE_FOOD, MySQLiteHelper.COLUMN_ID_FOOD
                  + " = " + id, null);
      }
-     public List<Food> getAllFoods() {
-        List<Food> foods = new ArrayList<Food>();
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FOOD, allColumns, null,
+     public Cursor getAllFoods() {
+        return database.query(MySQLiteHelper.TABLE_FOOD, null, null,
                 null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Food food = cursorToFood(cursor);
-            foods.add(food);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return foods;
-    }
-    private Food cursorToFood(Cursor cursor) {
-        Food food = new Food();
-        food.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id_food")));
-        food.setName(cursor.getString(cursor.getColumnIndexOrThrow("name_food")));
-        food.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow("price")));
-        food.setDescribe(cursor.getString(cursor.getColumnIndexOrThrow("describe")));
-        food.setSize(cursor.getInt(cursor.getColumnIndexOrThrow("size")));
-        food.setImgFood(cursor.getBlob(cursor.getColumnIndexOrThrow("img_food")));
-
-        Category category = new Category();
-        category.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id_category")));
-        food.setCategory(category);
-
-        return food;
     }
 }

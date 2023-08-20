@@ -3,6 +3,7 @@ package com.example.foodapp.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,6 +63,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         switch (item.getItemId()) {
                             case R.id.edit_menu:
                                 //sua cate
+//                                Bundle bundle = new Bundle();
+//                                bundle.putInt("id",category.getId());
+//                                bundle.putByteArray("");
                                 break;
                             case R.id.delete_menu:
                                 //xoa cate
@@ -93,21 +97,4 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             flow_menu = (ImageButton) itemView.findViewById(R.id.flowmenu);
         }
     }
-
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//
-//        byte[] img = getItem(position).getImg_cate();
-//        Category category = new Category(txtName)
-////        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-////        convertView = layoutInflater.inflate(mResource, parent, false);
-////
-////        ImageView imageView = convertView.findViewById(R.id.image);
-////        TextView txtName = convertView.findViewById(R.id.txtNameCate);
-////
-////        imageView.setImageResource(getItem(position).getImg_cate());
-////        txtName.setText(getItem(position).getName());
-////        return convertView;
-//    }
 }

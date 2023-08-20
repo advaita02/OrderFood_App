@@ -42,22 +42,22 @@ public class ContentActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
     private PhotoAdapter photoAdapter;
-//<<<<<<< HEAD
+    //<<<<<<< HEAD
     private RecyclerView rvcListContent;
     private ListContentCateAdapter listContentAdapter;
     private ListContentFoodAdapter listContentFoodAdapter;
     private CategoryDataSource categoryDataSource;
     private FoodDataSource foodDataSource;
     private MySQLiteHelper mySQLiteHelper;
-//=======
+    //=======
     BottomNavigationView bottomNavigationView;
 
-//>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
+    //>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
+        setContentView(R.layout.activity_main_content);
         //switch view khi dung navbar
         bottomNavigationView = findViewById(R.id.bottom_nav);
 
@@ -87,36 +87,37 @@ public class ContentActivity extends AppCompatActivity {
 //            j++;
 //            mySQLiteHelper.insertCategory(temp);
 //        }
-//        mySQLiteHelper.insertCategory("Com tam so 1");
-//        mySQLiteHelper.insertCategory("Com tam so 2");
-//        mySQLiteHelper.insertCategory("Com tam so 3");
-//        mySQLiteHelper.insertCategory("Com tam so 4");
-//        mySQLiteHelper.insertCategory("Com tam so 5");
         mySQLiteHelper = new MySQLiteHelper(this);
-        mySQLiteHelper.insertFood("Bun thit nuong 1", 75, "ngon vcl");
-        mySQLiteHelper.insertFood("Bun thit nuong 2", 85, "ngon vcl");
-        mySQLiteHelper.insertFood("Bun thit nuong 3", 95, "ngon vcl");
-        mySQLiteHelper.insertFood("Bun thit nuong 4", 100, "ngon vcl");
+        mySQLiteHelper.insertCategory("Com tam so 1");
+        mySQLiteHelper.insertCategory("Com tam so 2");
+        mySQLiteHelper.insertCategory("Com tam so 3");
+        mySQLiteHelper.insertCategory("Com tam so 4");
+        mySQLiteHelper.insertCategory("Com tam so 5");
+//        mySQLiteHelper = new MySQLiteHelper(this);
+//        mySQLiteHelper.insertFood("Bun thit nuong 1", 75, "ngon vcl");
+//        mySQLiteHelper.insertFood("Bun thit nuong 2", 85, "ngon vcl");
+//        mySQLiteHelper.insertFood("Bun thit nuong 3", 95, "ngon vcl");
+//        mySQLiteHelper.insertFood("Bun thit nuong 4", 100, "ngon vcl");
 
-        foodDataSource = new FoodDataSource(this);
+//        foodDataSource = new FoodDataSource(this);
 //        foodDataSource.insertFood("bun thit nuong 1", 10, "good");
 
 
 
-        Cursor data = mySQLiteHelper.GetData("Select * from food");
-        while (data.moveToNext()) {
-            String ten = data.getString(1);
-            Toast.makeText(this, ten, Toast.LENGTH_SHORT).show();
-        }
+//        Cursor data = mySQLiteHelper.GetData("Select * from food");
+//        while (data.moveToNext()) {
+//            String ten = data.getString(1);
+//            Toast.makeText(this, ten, Toast.LENGTH_SHORT).show();
+//        }
 
-        rvcListContent = findViewById(R.id.rcv_list_content);
-        listContentAdapter = new ListContentCateAdapter(this);
+//        rvcListContent = findViewById(R.id.rcv_list_content);
+//        listContentAdapter = new ListContentCateAdapter(this);
+//
+//        LinearLayoutManager linearLayoutManager = new  LinearLayoutManager(this , RecyclerView.VERTICAL, false);
+//        rvcListContent.setLayoutManager(linearLayoutManager);
 
-        LinearLayoutManager linearLayoutManager = new  LinearLayoutManager(this , RecyclerView.VERTICAL, false);
-        rvcListContent.setLayoutManager(linearLayoutManager);
-
-        listContentAdapter.setData(getListOfListContent());
-        rvcListContent.setAdapter(listContentAdapter);
+//        listContentAdapter.setData(getListOfListContent());
+//        rvcListContent.setAdapter(listContentAdapter);
 
 //        rvcListContent = new RecyclerView(this);
 //        rvcListContent = findViewById(R.id.rcv_list_content_food);
@@ -142,37 +143,37 @@ public class ContentActivity extends AppCompatActivity {
 
 
 
-    private List<ListContentCate> getListOfListContent() {
-        List<ListContentCate> list = new ArrayList<>();
+//    private List<ListContentCate> getListOfListContent() {
+//        List<ListContentCate> list = new ArrayList<>();
+//
+//        List<Category> listCate = new ArrayList<>();
+//        mySQLiteHelper = new MySQLiteHelper(this);
+//        Cursor data = mySQLiteHelper.GetData("Select * from category");
+//        while (data.moveToNext()) {
+//            String ten = data.getString(1);
+//            listCate.add(new Category(R.drawable.pizza, ten));
+//        }
+//
+//        list.add(new ListContentCate("Danh mục món ăn", listCate));
+//        return list;
+//    }
 
-        List<Category> listCate = new ArrayList<>();
-        mySQLiteHelper = new MySQLiteHelper(this);
-        Cursor data = mySQLiteHelper.GetData("Select * from category");
-        while (data.moveToNext()) {
-            String ten = data.getString(1);
-            listCate.add(new Category(R.drawable.pizza, ten));
-        }
-
-        list.add(new ListContentCate("Danh mục món ăn", listCate));
-        return list;
-    }
-
-    private List<ListContentFood> getListOfListContentFood() {
-        List<ListContentFood> list = new ArrayList<>();
-
-        List<Food> listFood = new ArrayList<>();
-        mySQLiteHelper = new MySQLiteHelper(this);
-        Cursor data = mySQLiteHelper.GetData("Select * from food");
-        while (data.moveToNext()) {
-            String ten = data.getString(1);
-            int price = data.getInt(2);
-            String describe = data.getString(3);
-            listFood.add(new Food(R.drawable.hamburger, ten, describe, price));
-        }
-
-        list.add(new ListContentFood("Danh sach món ăn", listFood));
-        return list;
-    }
+//    private List<ListContentFood> getListOfListContentFood() {
+//        List<ListContentFood> list = new ArrayList<>();
+//
+//        List<Food> listFood = new ArrayList<>();
+//        mySQLiteHelper = new MySQLiteHelper(this);
+//        Cursor data = mySQLiteHelper.GetData("Select * from food");
+//        while (data.moveToNext()) {
+//            String ten = data.getString(1);
+//            int price = data.getInt(2);
+//            String describe = data.getString(3);
+//            listFood.add(new Food(R.drawable.hamburger, ten, describe, price));
+//        }
+//
+//        list.add(new ListContentFood("Danh sach món ăn", listFood));
+//        return list;
+//    }
 
 //=======
 //        bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -234,7 +235,7 @@ public class ContentActivity extends AppCompatActivity {
 ////                        .commit();            }
 ////        });
 
-//    }
+    //    }
     public void FragmentAdd(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

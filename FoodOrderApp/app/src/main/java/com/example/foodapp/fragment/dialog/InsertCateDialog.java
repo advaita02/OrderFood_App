@@ -71,9 +71,7 @@ public class InsertCateDialog extends AppCompatDialogFragment {
                     }
                 });
 
-        imgButton = (ImageButton) view.findViewById(R.id.img_button_folder);
-        editNameCate = (EditText) view.findViewById(R.id.edit_catename);
-        imgView = (ImageView) view.findViewById(R.id.img_cate);
+        mapping(view);
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,4 +107,9 @@ public class InsertCateDialog extends AppCompatDialogFragment {
         return byteArray.toByteArray();
     }
 
+    public void mapping(View view) {
+        imgButton = (ImageButton) view.findViewById(R.id.img_button_folder);
+        editNameCate = (EditText) view.findViewById(R.id.edit_catename);
+        imgView = (ImageView) view.findViewById(R.id.img_cate);
+    }
 }

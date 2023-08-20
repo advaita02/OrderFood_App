@@ -72,7 +72,7 @@ public class ManageCateFragment extends Fragment implements AdapterView.OnItemCl
             byte[] img = cursor.getBlob(1);
             String nameCate = cursor.getString(2);
 
-            listCategory.add(new Category(nameCate, img));
+            listCategory.add(new Category(id, nameCate, img));
             cursor.moveToNext();
         }
         cursor.close();
