@@ -34,15 +34,21 @@
             />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="50dp"
-        android:id="@+id/listView"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:textColor="@color/black"
+        android:layout_marginTop="60dp"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:text="Danh sách danh mục:"/>
 
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/pale_yellow"
+        android:layout_marginTop="15dp"
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     </LinearLayout>
 
 

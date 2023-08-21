@@ -1,5 +1,6 @@
 package com.example.foodapp.Database.DataSource;
 
+import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_ID_USER;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_NAME_USER;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_PN_USER;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_PW_USER;
@@ -22,10 +23,11 @@ public class UserDataSource {
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
 
-    private String[] allColumns = {MySQLiteHelper.COLUMN_ID_USER,
+    private String[] allColumns = {COLUMN_ID_USER,
             MySQLiteHelper.COLUMN_NAME_USER,
             MySQLiteHelper.COLUMN_PN_USER,
-            MySQLiteHelper.COLUMN_PW_USER
+            MySQLiteHelper.COLUMN_PW_USER,
+//            MySQLiteHelper.COLUMN_IMG_USER
     };
 
     public UserDataSource(Context context) {
@@ -50,7 +52,7 @@ public class UserDataSource {
         long insertId = database.insert(TABLE_USER, null, values);
 
         Cursor cursor = database.query(TABLE_USER,
-                allColumns, MySQLiteHelper.COLUMN_ID_USER + " = " + insertId, null, null, null, null);
+                allColumns, COLUMN_ID_USER + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
         User newUser = cursorToUser(cursor);
         cursor.close();
@@ -58,15 +60,27 @@ public class UserDataSource {
         return newUser;
     }
 
-    public void deleteUser(User user) {
-        long id = user.getId();
-        System.out.println("Comment deleted with id: " + id);
-        database.delete(TABLE_USER, MySQLiteHelper.COLUMN_ID_USER
-                + " = " + id, null);
+    public void deleteUser(int userId) {
+        open();
+        database.delete(TABLE_USER, COLUMN_ID_USER + " = " + userId, null);
+        close();
     }
 
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<User>();
+    public void updateUser(String name, int pn, String pw) {
+
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME_USER, name);
+        values.put(MySQLiteHelper.COLUMN_PW_USER, pw);
+
+        String selection = MySQLiteHelper.COLUMN_PN_USER + " = ?";
+        String[] selectionArgs = { String.valueOf(pn) };
+
+        database.update(TABLE_USER, values, selection, selectionArgs);
+
+    }
+
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> users = new ArrayList<User>();
 
         Cursor cursor = database.query(TABLE_USER, allColumns, null,
                 null, null, null, null);
@@ -80,11 +94,17 @@ public class UserDataSource {
         return users;
     }
 
+//    public Cursor getAllUsers1() {
+//        open();
+//        return database.query(TABLE_USER, null,
+//                null, null, null, null, null);
+//    }
+
     private User cursorToUser(Cursor cursor) {
         User user = new User();
         user.setId(cursor.getInt(0));
         user.setName(cursor.getString(1));
-        user.setPn(cursor.getString(2));
+        user.setPn(cursor.getInt(2));
         user.setPw(cursor.getString(3));
         return user;
     }
