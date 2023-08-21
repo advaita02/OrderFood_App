@@ -3,7 +3,7 @@ package com.example.foodapp.Database.Entity;
 public class User {
     private int id;
     private String name;
-    private String pn;
+    private Integer pn;
     private String pw;
 
     public int getId() {
@@ -22,11 +22,11 @@ public class User {
         this.name = name;
     }
 
-    public String getPn() {
+    public Integer getPn() {
         return pn;
     }
 
-    public void setPn(String pn) {
+    public void setPn(Integer pn) {
         this.pn = pn;
     }
 
