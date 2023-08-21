@@ -23,8 +23,8 @@ public class FoodDataSource {
             MySQLiteHelper.COLUMN_PRICE,
             MySQLiteHelper.COLUMN_DESCRIBE,
             MySQLiteHelper.COLUMN_SIZE,
-            MySQLiteHelper.COLUMN_CATEGORY,
-            MySQLiteHelper.COLUMN_IMG_FOOD
+            MySQLiteHelper.COLUMN_IMG_FOOD,
+            MySQLiteHelper.COLUMN_CATEGORY
     };
 
     public FoodDataSource(Context context) {
@@ -39,25 +39,31 @@ public class FoodDataSource {
         dbHelper.close();
     }
 
-    public Food insertFood(String name, int price, String describe, int size, Category category) {
+    public long insertFood(String name, int price, String description, int size, byte[] image, int categoryId) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_NAME_FOOD, name);
         values.put(MySQLiteHelper.COLUMN_PRICE, price);
-        values.put(MySQLiteHelper.COLUMN_DESCRIBE, describe);
+        values.put(MySQLiteHelper.COLUMN_DESCRIBE, description);
         values.put(MySQLiteHelper.COLUMN_SIZE, size);
-        values.put(MySQLiteHelper.COLUMN_CATEGORY, category.getId());
+        values.put(MySQLiteHelper.COLUMN_IMG_FOOD, image);
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, categoryId);
 
-    // add data to Food table
-        long insertId = database.insert(MySQLiteHelper.TABLE_FOOD, null, values);
+        long insertedId = database.insert(MySQLiteHelper.TABLE_FOOD, null, values);
 
-    // Get and return data
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FOOD,
-                allColumns, MySQLiteHelper.COLUMN_ID_FOOD + " = " + insertId, null
-                ,null, null, null);
-        cursor.moveToFirst();
-        Food newFood = cursorToFood(cursor);
-        cursor.close();
-        return newFood;
+        return insertedId;
+    }
+
+    public int updateFood(long foodId, String name, int price, String description, int size, byte[] image, int categoryId) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME_FOOD, name);
+        values.put(MySQLiteHelper.COLUMN_PRICE, price);
+        values.put(MySQLiteHelper.COLUMN_DESCRIBE, description);
+        values.put(MySQLiteHelper.COLUMN_SIZE, size);
+        values.put(MySQLiteHelper.COLUMN_IMG_FOOD, image);
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, categoryId);
+
+        return database.update(MySQLiteHelper.TABLE_FOOD, values,
+                MySQLiteHelper.COLUMN_ID_FOOD + " = ?", new String[]{String.valueOf(foodId)});
     }
     public void deleteFood(Food food) {
          long id = food.getId();
@@ -65,29 +71,8 @@ public class FoodDataSource {
          database.delete(MySQLiteHelper.TABLE_FOOD, MySQLiteHelper.COLUMN_ID_FOOD
                  + " = " + id, null);
      }
-     public List<Food> getAllFoods() {
-        List<Food> foods = new ArrayList<Food>();
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FOOD, allColumns, null,
+     public Cursor getAllFoods() {
+        return database.query(MySQLiteHelper.TABLE_FOOD, null, null,
                 null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Food food = cursorToFood(cursor);
-            foods.add(food);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return foods;
-    }
-    private Food cursorToFood(Cursor cursor) {
-        Food food = new Food();
-        food.setId(cursor.getInt(0));
-        food.setName(cursor.getString(1));
-        food.setPrice(cursor.getInt(2));
-        food.setDescribe(cursor.getString(3));
-        food.setSize(cursor.getInt(4));
-        food.getCategory().setId(cursor.getInt(5));
-        return food;
     }
 }

@@ -11,6 +11,35 @@ public class Food {
     private byte[] imgFood;
     private Category category;
 
+    private  int quantity;
+
+    public Food(int id, String name_food, String des_food, int price_food, int size, byte[] imgFood, Category category) {
+        this.id = id;
+        this.name = name_food;
+        this.describe = des_food;
+        this.price = price_food;
+        this.size = size;
+        this.imgFood = imgFood;
+        this.category = category;
+    }
+
+    public Food(String name_food, String des_food, int price_food) {
+        this.name = name_food;
+        this.describe = des_food;
+        this.price = price_food;
+    }
+
+    public Food(String name_food, int price_food,int quantity) {
+        this.name = name_food;
+        this.price = price_food;
+
+        this.setQuantity(quantity);
+    }
+
+    public Food() {
+
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -71,5 +100,13 @@ public class Food {
 
     public void setImgFood(byte[] imgFood) {
         this.imgFood = imgFood;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.foodapp.Database.Adapter;
+package com.example.foodapp.Adapter;
 
 import android.content.Context;
 import android.view.View;

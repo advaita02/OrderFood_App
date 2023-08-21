@@ -1,5 +1,6 @@
 package com.example.foodapp.Database.DataSource;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -51,7 +52,47 @@ public class CategoryDataSource {
     }
 
     public Cursor getAllCategories() {
+        open();
         return database.query(MySQLiteHelper.TABLE_CATEGORY, null,
                 null, null, null, null, null);
+    }
+
+    public Category getCategoryById(int categoryId) {
+        String[] projection = {
+                MySQLiteHelper.COLUMN_ID_CATE,
+                MySQLiteHelper.COLUMN_IMG_CATE,
+                MySQLiteHelper.COLUMN_NAME_CATE
+        };
+
+        String selection = MySQLiteHelper.COLUMN_ID_CATE + " = ?";
+        String[] selectionArgs = { String.valueOf(categoryId) };
+
+        Cursor cursor = database.query(
+                MySQLiteHelper.TABLE_CATEGORY,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        Category category = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            category = cursorToCategory(cursor);
+            cursor.close();
+        }
+
+        return category;
+    }
+
+    @SuppressLint("Range")
+    private Category cursorToCategory(Cursor cursor) {
+        Category category = new Category();
+        category.setId(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID_CATE)));
+        category.setName(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_NAME_CATE)));
+        // Assuming you have a method to convert BLOB to byte[] for image
+        category.setImg_cate(cursor.getBlob(cursor.getColumnIndex(MySQLiteHelper.COLUMN_IMG_CATE)));
+        return category;
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/flowmenu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Sửa và xoá data"
+            android:src="@drawable/more_vert_manage" />
+
+        <ImageView
+            android:id="@+id/view_food_img"
+            android:layout_width="71dp"
+            android:layout_height="62dp"
+            android:paddingLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/txt_name_food"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/view_food_img"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/describe"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_name_food"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="10dp"
+            android:text="desc" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/describe"
+            android:layout_marginLeft="90dp"
+            android:layout_marginBottom="10dp"
+            android:text="Giá: "
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/describe"
+            android:layout_marginLeft="125dp"
+            android:text="80000"
+            android:layout_marginBottom="10dp"
+
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

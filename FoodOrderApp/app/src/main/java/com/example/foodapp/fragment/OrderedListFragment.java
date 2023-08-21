@@ -17,7 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.example.foodapp.Database.Adapter.OrderAdapter;
+import com.example.foodapp.Adapter.OrderAdapter;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.DataSource.OrderDataSource;
