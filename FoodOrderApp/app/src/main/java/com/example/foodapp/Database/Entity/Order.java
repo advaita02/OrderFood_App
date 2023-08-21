@@ -7,6 +7,14 @@ public class Order {
     private Date date;
     private User user;
 
+
+    public Order(int id, Date date,User user){
+        this.id=id;
+        this.date=date;
+        this.user=user;
+    }
+    public Order(){}
+
     public int getId() {
         return id;
     }
@@ -23,11 +31,11 @@ public class Order {
         this.date = date;
     }
 
-    public User getCustomer() {
+    public User getUser() {
         return user;
     }
 
-    public void setCustomer(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

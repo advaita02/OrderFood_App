@@ -14,6 +14,8 @@ public class Food implements Parcelable {
     private byte[] imgFood;
     private Category category;
 
+    private  int quantity;
+
     public Food(int id, String name_food, String des_food, int price_food, int size, byte[] imgFood, Category category) {
         this.id = id;
         this.name = name_food;
@@ -29,6 +31,14 @@ public class Food implements Parcelable {
         this.describe = des_food;
         this.price = price_food;
     }
+
+    public Food(String name_food, int price_food,int quantity) {
+        this.name = name_food;
+        this.price = price_food;
+
+        this.setQuantity(quantity);
+    }
+
     public Food() {
 
     }
@@ -131,5 +141,13 @@ public class Food implements Parcelable {
 
     public void setImgFood(byte[] imgFood) {
         this.imgFood = imgFood;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.MySQLiteHelper;
 import com.example.foodapp.Database.Entity.User;
 
@@ -108,6 +109,28 @@ public class UserDataSource {
         user.setPw(cursor.getString(3));
         return user;
     }
+    @SuppressLint("Range")
+    public User getUserById(int userId) {
+        database = dbHelper.getReadableDatabase();
+        String[] columns = {COLUMN_ID_USER, COLUMN_NAME_USER, COLUMN_PN_USER, COLUMN_PW_USER};
+        String selection = COLUMN_ID_USER + " = ?";
+        String[] selectionArgs = {String.valueOf(userId)};
+
+        Cursor cursor = database.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+
+        User user = null;
+        if (cursor.moveToFirst()) {
+            user = new User();
+            user.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID_USER)));
+            user.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME_USER)));
+            user.setPn(cursor.getInt(cursor.getColumnIndex(COLUMN_PN_USER)));
+            user.setPw(cursor.getString(cursor.getColumnIndex(COLUMN_PW_USER)));
+        }
+
+        cursor.close();
+        return user;
+    }
+
 
     public boolean checkPN(Integer pn) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -154,6 +177,18 @@ public class UserDataSource {
             cursor.close();
             return null;
         }
+    }
+    public void editNameUser(Integer phoneNum,String newName){
+        SQLiteDatabase sqLiteDatabase = this.dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_USER,newName);
+
+        String whereClause = COLUMN_PN_USER + " = ?";
+        String[] whereArgs = {String.valueOf(phoneNum)};
+
+        sqLiteDatabase.update(TABLE_USER,values,whereClause,whereArgs);
+        sqLiteDatabase.close();
     }
 
 }

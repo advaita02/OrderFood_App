@@ -4,12 +4,11 @@ import static androidx.databinding.DataBindingUtil.setContentView;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-//<<<<<<< HEAD
+import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-//=======
-//>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,23 +18,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-//<<<<<<< HEAD
+import com.example.foodapp.Adapter.FoodAdapter;
+import com.example.foodapp.Admin.fragment_admin.ManageFoodFragment;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.Entity.Food;
 import com.example.foodapp.Database.MySQLiteHelper;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-//=======
 
+import com.example.foodapp.fragment.CartFragment;
+import com.example.foodapp.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.example.foodapp.Adapter.PhotoAdapter;
-
-//>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
-
 import me.relex.circleindicator.CircleIndicator;
 
 public class ContentActivity extends AppCompatActivity {
@@ -45,10 +45,11 @@ public class ContentActivity extends AppCompatActivity {
     //<<<<<<< HEAD
     private RecyclerView rvcListContent;
     private ListContentCateAdapter listContentAdapter;
-    private ListContentFoodAdapter listContentFoodAdapter;
     private CategoryDataSource categoryDataSource;
     private FoodDataSource foodDataSource;
     private MySQLiteHelper mySQLiteHelper;
+    private ManageFoodFragment manageFoodFragment;
+    private View mView;
     //=======
     BottomNavigationView bottomNavigationView;
 
@@ -60,6 +61,23 @@ public class ContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_content);
         //switch view khi dung navbar
         bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()){
+                case R.id.action_home:
+                    break;
+                case R.id.action_order:
+                    replaceFragment(new CartFragment());
+                    break;
+                case R.id.action_notify:
+                    break;
+                case R.id.action_profile:
+                    replaceFragment(new ProfileFragment());
+                    break;
+            }
+
+            return true;
+        });
 
 //<<<<<<< HEAD
         ViewPager viewPager = findViewById(R.id.viewPager);
@@ -79,55 +97,21 @@ public class ContentActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_address_pickup, fragment_address, null).commit();
         });
 
-//        mySQLiteHelper = new MySQLiteHelper(this);
-//        int j = 1;
-//        for (int i = 1; i <= 10; i ++) {
-//            String temp = "Com tam suon so ";
-//            temp = temp.concat(Integer.toString(j));
-//            j++;
-//            mySQLiteHelper.insertCategory(temp);
-//        }
-        mySQLiteHelper = new MySQLiteHelper(this);
-        mySQLiteHelper.insertCategory("Com tam so 1");
-        mySQLiteHelper.insertCategory("Com tam so 2");
-        mySQLiteHelper.insertCategory("Com tam so 3");
-        mySQLiteHelper.insertCategory("Com tam so 4");
-        mySQLiteHelper.insertCategory("Com tam so 5");
-//        mySQLiteHelper = new MySQLiteHelper(this);
-//        mySQLiteHelper.insertFood("Bun thit nuong 1", 75, "ngon vcl");
-//        mySQLiteHelper.insertFood("Bun thit nuong 2", 85, "ngon vcl");
-//        mySQLiteHelper.insertFood("Bun thit nuong 3", 95, "ngon vcl");
-//        mySQLiteHelper.insertFood("Bun thit nuong 4", 100, "ngon vcl");
+        displayAllCateForUser();
+//        displayFoodsForUser();
+//        manageFoodFragment.displayFoods2();
 
-//        foodDataSource = new FoodDataSource(this);
-//        foodDataSource.insertFood("bun thit nuong 1", 10, "good");
+//        displayAllFoodsForUser();
 
-
-
-//        Cursor data = mySQLiteHelper.GetData("Select * from food");
-//        while (data.moveToNext()) {
-//            String ten = data.getString(1);
-//            Toast.makeText(this, ten, Toast.LENGTH_SHORT).show();
+//        Cursor cursor = mySQLiteHelper.GetData("Select * from food");
+//        while (cursor.moveToNext()) {
+//            String ten = cursor.getString(1);
+//            Toast.makeText(this,ten,Toast.LENGTH_SHORT).show();
 //        }
 
-//        rvcListContent = findViewById(R.id.rcv_list_content);
-//        listContentAdapter = new ListContentCateAdapter(this);
 //
-//        LinearLayoutManager linearLayoutManager = new  LinearLayoutManager(this , RecyclerView.VERTICAL, false);
-//        rvcListContent.setLayoutManager(linearLayoutManager);
 
-//        listContentAdapter.setData(getListOfListContent());
-//        rvcListContent.setAdapter(listContentAdapter);
-
-//        rvcListContent = new RecyclerView(this);
-//        rvcListContent = findViewById(R.id.rcv_list_content_food);
-//        listContentFoodAdapter = new ListContentFoodAdapter(this);
 //
-//        LinearLayoutManager linearLayout = new  LinearLayoutManager(this , RecyclerView.HORIZONTAL, false);
-//        rvcListContent.setLayoutManager(linearLayout);
-//
-//        listContentFoodAdapter.setData(getListOfListContentFood());
-//        rvcListContent.setAdapter(listContentFoodAdapter);
 
 //        Fragment fragment_product = getSupportFragmentManager().findFragmentById(R.id.cardview);
 //        LinearLayout imageView =(LinearLayout) fragment_product.requireView().findViewById(R.id.product);
@@ -141,101 +125,126 @@ public class ContentActivity extends AppCompatActivity {
     }
 
 
+    private void displayAllCateForUser() {
+        rvcListContent = findViewById(R.id.rcv_list_content);
+        listContentAdapter = new ListContentCateAdapter(this);
 
+        LinearLayoutManager linearLayoutManager = new  LinearLayoutManager(this , RecyclerView.VERTICAL, false);
+        rvcListContent.setLayoutManager(linearLayoutManager);
 
-//    private List<ListContentCate> getListOfListContent() {
-//        List<ListContentCate> list = new ArrayList<>();
+        listContentAdapter.setData(getAllCatesForUser());
+        rvcListContent.setAdapter(listContentAdapter);
+    }
+
+    private List<ListContentCate> getAllCatesForUser() {
+        List<ListContentCate> list = new ArrayList<>();
+
+        List<Category> listCate = new ArrayList<>();
+        mySQLiteHelper = new MySQLiteHelper(this);
+        Cursor data = mySQLiteHelper.GetData("Select * from category");
+        while (data.moveToNext()) {
+            int id = data.getInt(0);
+            byte[] img = data.getBlob(1);
+            String nameCate = data.getString(2);
+            listCate.add(new Category(id, nameCate, img));
+        }
+
+        list.add(new ListContentCate("Danh mục món ăn", listCate));
+        return list;
+    }
+
+//    private void displayFoodsForUser(){
+////        RecyclerView rcvFood = findViewById(R.id.rcv_list_content_food);
+////        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+////        rcvFood.setLayoutManager(linearLayoutManager);
+////
+//////        FoodAdapter foodAdapter = new FoodAdapter(getListFood());
+////        rcvFood.setAdapter(foodAdapter);
+////    }
+    private List<Food> getListFood(){
+        List<Food> list = new ArrayList<>();
+        mySQLiteHelper = new MySQLiteHelper(this);
+        Cursor cursor = mySQLiteHelper.GetData("Select * from food");
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(0);
+            String namefood = cursor.getString(1);
+            int priceFood = cursor.getInt(2);
+            String desFood = cursor.getString(3);
+            int sizeFood = cursor.getInt(4);
+            byte[] img = imagemTratada(cursor.getBlob(5));
+            int categoryId = cursor.getInt(6);
+            Category category = getCatebyID(categoryId);
+            list.add(new Food(id,namefood, desFood,priceFood,sizeFood,img, category ));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+//    private void displayAllFoodsForUser () {
+//        rvcListContent = new RecyclerView(this);
+//        rvcListContent = findViewById(R.id.rcv_list_content_food);
+//        listContentFoodAdapter = new ListContentFoodAdapter(this);
 //
-//        List<Category> listCate = new ArrayList<>();
-//        mySQLiteHelper = new MySQLiteHelper(this);
-//        Cursor data = mySQLiteHelper.GetData("Select * from category");
-//        while (data.moveToNext()) {
-//            String ten = data.getString(1);
-//            listCate.add(new Category(R.drawable.pizza, ten));
-//        }
+//        LinearLayoutManager linearLayout = new  LinearLayoutManager(this , RecyclerView.HORIZONTAL, false);
+//        rvcListContent.setLayoutManager(linearLayout);
 //
-//        list.add(new ListContentCate("Danh mục món ăn", listCate));
-//        return list;
+//        listContentFoodAdapter.setData(getAllFoodsForUser());
+//        rvcListContent.setAdapter(listContentFoodAdapter);
+//
 //    }
-
-//    private List<ListContentFood> getListOfListContentFood() {
+//    private List<ListContentFood> getAllFoodsForUser() {
 //        List<ListContentFood> list = new ArrayList<>();
 //
 //        List<Food> listFood = new ArrayList<>();
 //        mySQLiteHelper = new MySQLiteHelper(this);
 //        Cursor data = mySQLiteHelper.GetData("Select * from food");
 //        while (data.moveToNext()) {
-//            String ten = data.getString(1);
-//            int price = data.getInt(2);
-//            String describe = data.getString(3);
-//            listFood.add(new Food(R.drawable.hamburger, ten, describe, price));
+//            int id = data.getInt(0);
+//            String namefood = data.getString(1);
+//            int priceFood = data.getInt(2);
+//            String desFood = data.getString(3);
+//            int sizeFood = data.getInt(4);
+//            byte[] img = imagemTratada(data.getBlob(5));
+//            int categoryId = data.getInt(6);
+//            Category category = getCatebyID(categoryId);
+//            listFood.add(new Food(id,namefood, desFood,priceFood,sizeFood,img, category ));
 //        }
 //
 //        list.add(new ListContentFood("Danh sach món ăn", listFood));
 //        return list;
 //    }
 
+    private Category getCatebyID(int id){
+        Cursor cursor_cate = mySQLiteHelper.getReadableDatabase().rawQuery("Select * from category where id_category = ?",
+                new String[] {String.valueOf(id)});
+        Category category = new Category();
+        if (cursor_cate.moveToFirst()) {
+            do {
+                category.setId(cursor_cate.getInt(0));
+                category.setImg_cate(cursor_cate.getBlob(1));
+                category.setName(cursor_cate.getString(2));
+            } while (cursor_cate.moveToNext());
+        }
+        return category;
+    }
+
+    private byte[] imagemTratada(byte[] imagem_img){
+
+        while (imagem_img.length > 500000){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imagem_img, 0, imagem_img.length);
+            Bitmap resized = Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*0.8), (int)(bitmap.getHeight()*0.8), true);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            resized.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            imagem_img = stream.toByteArray();
+        }
+        return imagem_img;
+
+    }
 //=======
-//        bottomNavigationView.setOnItemSelectedListener(item -> {
-//
-//            switch (item.getItemId()){
-//                case R.id.action_home:
-//                    break;
-//                case R.id.action_order:
-//                    break;
-//                case R.id.action_notify:
-//                    break;
-//                case R.id.action_profile:
-//                    replaceFragment(new ProfileFragment());
-//                    break;
-//            }
-//
-//            return true;
-//        });
 
-//        ViewPager viewPager = findViewById(R.id.viewPager);
-//        int[] imageIds = {R.drawable.qc1, R.drawable.qc2, R.drawable.qc3, R.drawable.qc4};
-//        PhotoAdapter adapter = new PhotoAdapter(this, imageIds);
-//        viewPager.setAdapter(adapter);
-//        viewPager.setId(R.id.view_pager);
 
-//        Button edittext_fragment_address;
-//        ImageView imgAddress_iconDown;
-//        ImageView imgAdress_iconLocation;
-//
-//        edittext_fragment_address = findViewById(R.id.edittext_fragment_address);
-//        imgAdress_iconLocation = findViewById(R.id.icon_location);
-//        imgAddress_iconDown = findViewById(R.id.address_icon_down);
-//
-//
-//
-//        edittext_fragment_address.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Fragment fragment_address = new AddressFragment();
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_address_pickup, fragment_address, null).commit();
-////                BottomNavigationView bottomNavigationView = new BottomNavigationView();
-////                bottomNavigationView.findViewById(R.id.bottom_nav).setVisibility(View.INVISIBLE);
-//            }
-//        });
-////        imgAdress_iconLocation.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_address_pickup, new AddressFragment(), null).commit();
-////            }
-////        });
-////        imgAddress_iconDown.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                FragmentManager fragmentManager = getSupportFragmentManager();
-////                fragmentManager.beginTransaction()
-////                        .replace(R.id.fragment_address_pickup,new AddressFragment(), null)
-////                        .setReorderingAllowed(true)
-////                        .addToBackStack("name") // Name can be null
-////                        .commit();            }
-////        });
-
-    //    }
     public void FragmentAdd(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -245,7 +254,7 @@ public class ContentActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.layoutMain,fragment);
+        fragmentTransaction.replace(R.id.fragment_address_pickup,fragment);
         fragmentTransaction.commit();
     }
 //>>>>>>> ea3e8a2daacbf54febcb1accea284458ae1aef71
