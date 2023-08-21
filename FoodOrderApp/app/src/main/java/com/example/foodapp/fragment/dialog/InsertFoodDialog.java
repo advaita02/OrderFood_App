@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.Adapter.CategoryAdapter;
 import com.example.foodapp.Adapter.CategorySpinnerAdapter;
+import com.example.foodapp.Database.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
@@ -50,10 +51,8 @@ import java.util.ArrayList;
 public class InsertFoodDialog extends AppCompatDialogFragment {
     private EditText editTextName, editTextDescription, price;
     private Spinner spinnerCate;
-    private final int REQUEST_CODE_FOLDER = 100;
     private ImageButton imgButton;
-    private ImageView imgView;
-    private ImageView imgSpinner;
+    private ImageView imgView, imgSpinner;
     private TextView textNameCateSpinner;
     private Uri seletedImage;
     Bitmap imageTostore;
@@ -99,7 +98,7 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQUEST_CODE_FOLDER);
+                startActivityForResult(intent, Constants.REQUEST_CODE_FOLDER);
             }
         });
         spinnerCate = (Spinner) view.findViewById(R.id.spinner_cate);
@@ -111,7 +110,7 @@ public class InsertFoodDialog extends AppCompatDialogFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         seletedImage = data.getData();
-        if(requestCode == REQUEST_CODE_FOLDER && resultCode == RESULT_OK && data != null) {
+        if(requestCode == Constants.REQUEST_CODE_FOLDER && resultCode == RESULT_OK && data != null) {
             try {
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(seletedImage);
                 imageTostore = BitmapFactory.decodeStream(inputStream);

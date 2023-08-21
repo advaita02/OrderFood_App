@@ -1,10 +1,8 @@
 package com.example.foodapp.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,11 +11,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodapp.Database.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.R;
@@ -26,27 +27,24 @@ import com.example.foodapp.fragment.dialog.CateDialog;
 import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    private Context mContext;
     int singleData;
     ArrayList<Category> categories;
     CategoryDataSource categoryDataSource;
-    private FragmentManager fragmentManager;
+    private Context context;
 
-    public CategoryAdapter(Context mContext, int singleData, ArrayList<Category> categories, CategoryDataSource categoryDataSource) {
-        this.mContext = mContext;
+
+    public CategoryAdapter(Context context, int singleData, ArrayList<Category> categories, CategoryDataSource categoryDataSource) {
+        this.context = context;
         this.singleData = singleData;
         this.categories = categories;
         this.categoryDataSource = categoryDataSource;
     }
 
-    public CategoryAdapter(FragmentManager fragmentManager) {
-        this.fragmentManager = fragmentManager;
-    }
 
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_row_cate, null);
         return new ViewHolder(view);
     }
@@ -65,27 +63,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.flow_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(mContext, holder.flow_menu);
+                PopupMenu popupMenu = new PopupMenu(context, holder.flow_menu);
                 popupMenu.inflate(R.menu.flow_menu);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_menu:
-//                                 Sửa cate
-//                                Bundle bundle = new Bundle();
-//                                bundle.putInt("id", category.getId());
-//                                bundle.putString("name", category.getName());
-//                                bundle.putByteArray("img", category.getImg_cate());
-//
-//                                CateDialog cateDialog = CateDialog.newInstance(category.getId(), category.getName(), category.getImg_cate());
-//                                cateDialog.setArguments(bundle); // Truyền dữ liệu vào hộp thoại
-//                                fragmentManager = cateDialog.getFragmentManager();
-//                                fragmentManager = cateDialog.requireFragmentManager();
-//                                cateDialog.show(fragmentManager, "cate_dialog_tag");
+                                Constants.isEditingCategory = false;
+                                showCustomDialogFragment(category);
                                 break;
                             case R.id.delete_menu:
-                                //xoa cate
+                                categoryDataSource.open();
+                                categoryDataSource.deleteCategory(category.getId());
+                                Toast.makeText(context, "Đã xoá danh mục", Toast.LENGTH_SHORT).show();
+                                categoryDataSource.close();
                             default:
                                 return false;
                         }
@@ -96,6 +88,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 popupMenu.show();
             }
         });
+    }
+    private void showCustomDialogFragment(Category category) {
+        if (category != null) {
+            CateDialog dialogFragment = CateDialog.newInstance(category);
+            dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog_fragment");
+        }
     }
 
     @Override
@@ -114,4 +112,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             flow_menu = (ImageButton) itemView.findViewById(R.id.flowmenu);
         }
     }
+
 }

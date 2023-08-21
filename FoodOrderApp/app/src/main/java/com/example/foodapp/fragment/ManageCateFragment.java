@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.Adapter.CategoryAdapter;
+import com.example.foodapp.Database.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.R;
@@ -28,6 +29,7 @@ public class ManageCateFragment extends Fragment implements AdapterView.OnItemCl
     CategoryDataSource categoryDataSource;
     CategoryAdapter categoryAdapter;
     Button buttonOpenDialogInsert;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ManageCateFragment extends Fragment implements AdapterView.OnItemCl
         buttonOpenDialogInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constants.isEditingCategory = true;
                 openDialogInsert();
             }
         });
