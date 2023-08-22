@@ -1,6 +1,11 @@
 package com.example.foodapp.Database.Entity;
 
-public class Category {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Category implements Parcelable {
     private int id;
     private String name;
     private byte[] img_cate;
@@ -45,5 +50,15 @@ public class Category {
 
     public void setImg_cate(byte[] img_cate) {
         this.img_cate = img_cate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+
     }
 }

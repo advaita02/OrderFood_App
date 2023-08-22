@@ -1,5 +1,7 @@
 package com.example.foodapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,11 +41,12 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateViewHolder
     @Override
     public void onBindViewHolder(@NonNull CateViewHolder holder, int position) {
         Category category = mCategory.get(position);
-        if (category == null) {
-            return;
+        byte[] img = category.getImg_cate();
+        if (category != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+            holder.img_cateory.setImageBitmap(bitmap);
+            holder.name_category.setText(category.getName());
         }
-        holder.img_cateory.setImageResource(category.getId());
-        holder.name_category.setText(category.getName());
     }
 
     public class CateViewHolder extends RecyclerView.ViewHolder {

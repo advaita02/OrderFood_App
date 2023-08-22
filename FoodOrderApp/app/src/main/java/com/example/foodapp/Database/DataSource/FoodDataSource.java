@@ -72,7 +72,23 @@ public class FoodDataSource {
                  + " = " + id, null);
      }
      public Cursor getAllFoods() {
+        open();
         return database.query(MySQLiteHelper.TABLE_FOOD, null, null,
                 null, null, null, null);
+    }
+
+    public int getCountOfIds() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = { "COUNT(id_food)" }; // Thay "id_column_name" bằng tên cột ID của bạn
+        Cursor cursor = db.query(MySQLiteHelper.TABLE_FOOD, projection, null, null, null, null, null);
+
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return count;
     }
 }

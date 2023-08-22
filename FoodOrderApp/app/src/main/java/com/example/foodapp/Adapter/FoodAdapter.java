@@ -1,6 +1,8 @@
 package com.example.foodapp.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
-import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.Entity.Food;
 import com.example.foodapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
@@ -25,12 +24,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     int singleData;
     FoodDataSource foodDataSource;
 
-//    public FoodAdapter(Context mContext, int singleData, List<Food> mFood, FoodDataSource foodDataSource) {
-//        this.mContext = mContext;
-//        this.singleData = singleData;
-//        this.mFood = mFood;
-//        this.foodDataSource = foodDataSource;
-//    }
+
 
     public void setData(List<Food> list) {
         this.mFood = list;
@@ -40,20 +34,21 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food, parent, false);
         return new FoodViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         Food food = mFood.get(position);
-        if (food == null) {
-            return;
+        byte[] img = food.getImgFood();
+        if (food != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+            holder.img_food.setImageBitmap(bitmap);
+            holder.name_food.setText(food.getName());
+            holder.des_food.setText(food.getDescribe());
+            holder.price_food.setText(food.getPrice());
         }
-        holder.img_food.setImageResource(food.getId());
-        holder.name_food.setText(food.getName());
-        holder.des_food.setText(food.getDescribe());
-        holder.price_food.setText(food.getPrice());
     }
 
     @Override

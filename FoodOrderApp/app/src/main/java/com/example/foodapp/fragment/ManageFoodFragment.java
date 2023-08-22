@@ -14,13 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.Adapter.AdminFoodAdapter;
-import com.example.foodapp.Adapter.CategoryAdapter;
+import com.example.foodapp.Adapter.FoodAdapterUser;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.Entity.Food;
 import com.example.foodapp.R;
-import com.example.foodapp.fragment.dialog.InsertCateDialog;
 import com.example.foodapp.fragment.dialog.InsertFoodDialog;
 
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ public class ManageFoodFragment extends Fragment {
     FoodDataSource foodDataSource;
     AdminFoodAdapter adminFooAdapter;
 
+    FoodAdapterUser foodAdapterUser;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,7 +81,33 @@ public class ManageFoodFragment extends Fragment {
         recyclerView.setAdapter(adminFooAdapter);
     }
 
-    private Category getCategory(int categoryId) {
+    public void displayFoods2() {
+        foodDataSource = new FoodDataSource(getActivity());
+        foodDataSource.open();
+        Cursor cursor = foodDataSource.getAllFoods();
+        ArrayList<Food> foods = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(0);
+            String nameFood = cursor.getString(1);
+            int price = cursor.getInt(2);
+            String describe = cursor.getString(3);
+            int size = cursor.getInt(4);
+            byte[] img = cursor.getBlob(5);
+            int categoryId = cursor.getInt(6);
+
+            Category category = getCategory(categoryId);
+            foods.add(new Food(id, nameFood, describe, price, size, img, category));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        foodAdapterUser = new FoodAdapterUser(getActivity(), R.layout.item_food, foods, foodDataSource);
+        recyclerView.setAdapter(foodAdapterUser);
+    }
+
+
+
+    public Category getCategory(int categoryId) {
         CategoryDataSource categoryDataSource = new CategoryDataSource(getActivity());
         categoryDataSource.open();
         Category category = categoryDataSource.getCategoryById(categoryId);
@@ -89,9 +115,13 @@ public class ManageFoodFragment extends Fragment {
         return category;
     }
 
+
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         foodDataSource.close();
     }
+
 }

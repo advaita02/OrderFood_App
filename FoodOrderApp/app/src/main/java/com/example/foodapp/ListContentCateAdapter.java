@@ -58,7 +58,7 @@ public class ListContentCateAdapter extends RecyclerView.Adapter<ListContentCate
         return 0;
     }
 
-    public class ListContentViewHolder extends RecyclerView.ViewHolder {
+    public static class ListContentViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name_item_content;
         private RecyclerView rcvItem;
