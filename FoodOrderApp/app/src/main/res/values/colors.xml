@@ -11,6 +11,7 @@
     <color name="red">#FF0E3C</color>
     <color name="smoke">#cfe8e8</color>
     <color name="main"><![CDATA[#FF0E3C]]></color>
+    <color name="pale_yellow">#fcfa86</color>
 
 
 </resources>

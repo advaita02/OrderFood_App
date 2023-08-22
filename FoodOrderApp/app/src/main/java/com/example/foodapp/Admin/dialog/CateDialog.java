@@ -1,7 +1,6 @@
-package com.example.foodapp.fragment.dialog;
+package com.example.foodapp.Admin.dialog;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Intent.getIntent;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.foodapp.Adapter.CategoryAdapter;
-import com.example.foodapp.Database.Constants;
+import com.example.foodapp.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.R;
@@ -48,9 +45,6 @@ public class CateDialog extends AppCompatDialogFragment {
     private String categoryName;
     private byte[] categoryImg;
 
-    public CateDialog(CategoryDataSource categoryDataSource) {
-        this.categoryDataSource = categoryDataSource;
-    }
 
     public CateDialog() {
         // Required empty constructor
@@ -74,7 +68,7 @@ public class CateDialog extends AppCompatDialogFragment {
 
         mapping(view);
 
-        if (Constants.isEditingCategory == true) {
+        if (Constants.isInsertCategory == true) {
             builder.setView(view).setTitle("THÊM DANH MỤC")
                     .setNegativeButton("Huỷ", new DialogInterface.OnClickListener() {
                         @Override
@@ -93,6 +87,14 @@ public class CateDialog extends AppCompatDialogFragment {
                             Toast.makeText(getActivity(), "Đã thêm vào danh mục", Toast.LENGTH_SHORT).show();
                         }
                     });
+            imgButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, Constants.REQUEST_CODE_FOLDER);
+                }
+            });
+            return builder.create();
         } else {
             Bundle args = getArguments();
             if(args != null) {
@@ -115,15 +117,15 @@ public class CateDialog extends AppCompatDialogFragment {
                             categoryDataSource.close();
                         }
                     });
+            imgButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, Constants.REQUEST_CODE_FOLDER);
+                }
+            });
+            return builder.create();
         }
-        imgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, Constants.REQUEST_CODE_FOLDER);
-            }
-        });
-        return builder.create();
     }
 
     @Override
@@ -144,10 +146,9 @@ public class CateDialog extends AppCompatDialogFragment {
     private void updateCate() {
         if (category != null) {
             categoryId = category.getId();
-            categoryName = category.getName();
             categoryImg = category.getImg_cate();
 
-            editNameCate.setText(categoryName);
+            editNameCate.setText(category.getName());
             if (categoryImg != null) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(categoryImg, 0, categoryImg.length);
                 imgView.setImageBitmap(bitmap);

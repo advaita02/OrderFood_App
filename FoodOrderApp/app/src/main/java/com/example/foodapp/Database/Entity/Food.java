@@ -1,8 +1,12 @@
 package com.example.foodapp.Database.Entity;
 
-import androidx.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Food {
+import androidx.annotation.NonNull;
+import java.io.Serializable;
+
+public class Food implements Serializable, Parcelable {
     private int id;
     private String name;
     private int price;
@@ -39,6 +43,44 @@ public class Food {
     public Food() {
 
     }
+
+    protected Food(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        price = in.readInt();
+        describe = in.readString();
+        size = in.readInt();
+        imgFood = in.createByteArray();
+        category = in.readParcelable(Category.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeInt(price);
+        dest.writeString(describe);
+        dest.writeInt(size);
+        dest.writeByteArray(imgFood);
+        dest.writeParcelable(category, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Food> CREATOR = new Creator<Food>() {
+        @Override
+        public Food createFromParcel(Parcel in) {
+            return new Food(in);
+        }
+
+        @Override
+        public Food[] newArray(int size) {
+            return new Food[size];
+        }
+    };
 
     @NonNull
     @Override

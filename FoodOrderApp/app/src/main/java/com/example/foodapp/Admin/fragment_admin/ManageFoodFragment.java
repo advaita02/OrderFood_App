@@ -1,4 +1,4 @@
-package com.example.foodapp.fragment;
+package com.example.foodapp.Admin.fragment_admin;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,13 +13,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodapp.Adapter.AdminFoodAdapter;
+import com.example.foodapp.Admin.AdapterAdmin.AdminFoodAdapter;
+import com.example.foodapp.Admin.dialog.FoodDialog;
+import com.example.foodapp.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.Entity.Food;
 import com.example.foodapp.R;
-import com.example.foodapp.fragment.dialog.InsertFoodDialog;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class ManageFoodFragment extends Fragment {
         btnOpenDialogFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constants.isInsertFood = true;
                 openDialogInsert();
             }
         });
@@ -51,8 +53,8 @@ public class ManageFoodFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
     }
     public void openDialogInsert() {
-        InsertFoodDialog insertFoodDialog = new InsertFoodDialog();
-        insertFoodDialog.show(getActivity().getSupportFragmentManager(), "insert food dialog");
+        FoodDialog foodDialog = new FoodDialog();
+        foodDialog.show(getActivity().getSupportFragmentManager(), "insert food dialog");
     }
 
     public void displayFoods() {

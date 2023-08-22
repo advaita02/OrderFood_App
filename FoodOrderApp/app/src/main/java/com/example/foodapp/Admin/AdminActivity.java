@@ -13,10 +13,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.foodapp.R;
-import com.example.foodapp.fragment.ManageCateFragment;
-import com.example.foodapp.fragment.ManageFoodFragment;
-import com.example.foodapp.fragment.ManageOrderFragment;
-import com.example.foodapp.fragment.ManageUserFragment;
+import com.example.foodapp.Admin.fragment_admin.ManageCateFragment;
+import com.example.foodapp.Admin.fragment_admin.ManageFoodFragment;
+import com.example.foodapp.Admin.fragment_admin.ManageOrderFragment;
+import com.example.foodapp.Admin.fragment_admin.ManageUserFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{

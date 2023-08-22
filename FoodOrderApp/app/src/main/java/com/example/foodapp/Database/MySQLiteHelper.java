@@ -71,11 +71,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_FOOD_ORDER + " integer references " + TABLE_FOOD + "(" + COLUMN_ID_FOOD + "), "
             + COLUMN_QUANTITY + " integer);";
 
-    private static final String ORDER_CREATE = "create table "
-            + TABLE_ORDER + "(" + COLUMN_ID_ORDER + " integer primary key autoincrement, "
-            + COLUMN_DATE + " TEXT, "
-            + COLUMN_USER_ORDER + " integer references " + TABLE_USER + "(" + COLUMN_ID_USER + "));";
-
     private static final String RATING_CREATE = "create table "
             + TABLE_RATING + "(" + COLUMN_ID_RATE + " integer primary key autoincrement, "
             + COLUMN_VALUE + " integer, "
@@ -92,23 +87,27 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_IMG_FOOD + " BLOB, "
             + COLUMN_CATEGORY + " integer references " + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + "));";
 
-    private static final String CATEGORY_CREATE = "create table "
-            + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + " integer primary key autoincrement, "
-            + COLUMN_IMG_CATE + " BLOB, "
-            + COLUMN_NAME_CATE + " text not null);";
-
     private static final String USER_CREATE = "create table "
             + TABLE_USER + "(" + COLUMN_ID_USER + " integer primary key autoincrement, "
             + COLUMN_NAME_USER + " TEXT, "
             + COLUMN_PN_USER + " integer, "
             + COLUMN_PW_USER + " TEXT);";
 
+    private static final String ORDER_CREATE = "create table "
+            + TABLE_ORDER + "(" + COLUMN_ID_ORDER + " integer primary key autoincrement, "
+            + COLUMN_DATE + " TEXT, "
+            + COLUMN_USER_ORDER + " integer references " + TABLE_USER + "(" + COLUMN_ID_USER + "));";
+
+    private static final String CATEGORY_CREATE = "create table "
+            + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + " integer primary key autoincrement, "
+            + COLUMN_IMG_CATE + " BLOB, "
+            + COLUMN_NAME_CATE + " text not null);";
+
+
     private static final String ADMIN_CREATE = "create table "
             + TABLE_ADMIN + "(" + COLUMN_ID_ADMIN + " integer primary key autoincrement, "
             + COLUMN_NAME_ADMIN + " TEXT, "
             + COLUMN_PW_ADMIN + " TEXT);";
-
-//    String themAdmin = "Insert into admin (name_admin, pw_admin) values('staff_admin', 123);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -163,6 +162,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         sqLiteDatabase.delete(TABLE_CATEGORY,null, null);
         sqLiteDatabase.close();
     }
+    public Cursor GetImageCursor(int foodId) {
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        String[] projection = { "img_food" }; // Thay "image_column_name" bằng tên cột chứa hình ảnh
+        String selection = "id_food = ?";
+        String[] selectionArgs = { String.valueOf(foodId) };
+
+        return db.query(TABLE_FOOD, projection, selection, selectionArgs, null, null, null);
+    }
 
 }

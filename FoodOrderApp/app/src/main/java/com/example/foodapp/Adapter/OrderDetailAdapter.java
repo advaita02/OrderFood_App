@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.Database.DataSource.OrderItemDataSource;
 import com.example.foodapp.Database.Entity.Food;
-import com.example.foodapp.Database.Entity.OrderItems;
+import com.example.foodapp.Database.Entity.OrderItem;
+import com.example.foodapp.Database.Entity.OrderItem;
 import com.example.foodapp.R;
 
 import java.util.ArrayList;
@@ -21,10 +22,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
     private Context mContext;
     int singleData;
-    ArrayList<OrderItems> orderItems;
+    ArrayList<OrderItem> orderItems;
     OrderItemDataSource orderItemDataSource;
 
-    public OrderDetailAdapter(Context mContext, int singleData, ArrayList<OrderItems> foods, OrderItemDataSource orderItemDataSource) {
+    public OrderDetailAdapter(Context mContext, int singleData, ArrayList<OrderItem> foods, OrderItemDataSource orderItemDataSource) {
         this.mContext = mContext;
         this.singleData = singleData;
         this.orderItems = foods;
@@ -41,7 +42,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final OrderItems food = orderItems.get(position);
+        final OrderItem food = orderItems.get(position);
 //        holder.txtNameFood.setText(food.getName());
 //        holder.price.setText(Integer.toString(food.getPrice()));
 //        holder.quantity.setText("Số lượng: " + Integer.toString(food.getQuantity()));

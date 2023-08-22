@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.foodapp.Adapter.AdminFoodAdapter;
 import com.example.foodapp.Adapter.FoodCartAdapter;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.DataSource.OrderDataSource;

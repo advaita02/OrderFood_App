@@ -17,7 +17,7 @@ import com.example.foodapp.Adapter.FoodCartAdapter;
 import com.example.foodapp.Adapter.OrderDetailAdapter;
 import com.example.foodapp.Database.DataSource.OrderItemDataSource;
 import com.example.foodapp.Database.Entity.Food;
-import com.example.foodapp.Database.Entity.OrderItems;
+import com.example.foodapp.Database.Entity.OrderItem;
 import com.example.foodapp.R;
 
 import java.text.ParseException;
@@ -28,7 +28,7 @@ public class OrderItemFragment extends Fragment {
     OrderDetailAdapter orderDetailAdapter;
 
     OrderItemDataSource orderItemDataSource;
-    ArrayList<OrderItems> orderItems;
+    ArrayList<OrderItem> orderItems;
     Context context;
     public OrderItemFragment() {
         // Required empty public constructor

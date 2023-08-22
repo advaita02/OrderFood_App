@@ -6,15 +6,15 @@
     android:id="@+id/cardview_product"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="10dp"
-    app:cardCornerRadius="4dp"
-    >
+    app:cardCornerRadius="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:id="@+id/product">
+        android:id="@+id/product"
+        android:clickable="true">
 
         <ImageView
             android:id="@+id/img_product"

@@ -1,4 +1,4 @@
-package com.example.foodapp.Adapter;
+package com.example.foodapp.Admin.AdapterAdmin;
 
 import android.content.Context;
 import android.graphics.Bitmap;

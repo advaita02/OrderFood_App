@@ -1,4 +1,4 @@
-package com.example.foodapp.Adapter;
+package com.example.foodapp.Admin.AdapterAdmin;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,21 +15,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodapp.Database.Constants;
+import com.example.foodapp.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.R;
-import com.example.foodapp.fragment.dialog.CateDialog;
+import com.example.foodapp.Admin.dialog.CateDialog;
 
 import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    int singleData;
-    ArrayList<Category> categories;
-    CategoryDataSource categoryDataSource;
+    private int singleData;
+    private ArrayList<Category> categories;
+    private CategoryDataSource categoryDataSource;
     private Context context;
 
 
@@ -70,14 +69,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_menu:
-                                Constants.isEditingCategory = false;
-                                showCustomDialogFragment(category);
+                                Constants.isInsertCategory = false;
+                                showCateDialog(category);
                                 break;
                             case R.id.delete_menu:
                                 categoryDataSource.open();
                                 categoryDataSource.deleteCategory(category.getId());
                                 Toast.makeText(context, "Đã xoá danh mục", Toast.LENGTH_SHORT).show();
                                 categoryDataSource.close();
+                                break;
                             default:
                                 return false;
                         }
@@ -89,7 +89,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             }
         });
     }
-    private void showCustomDialogFragment(Category category) {
+    private void showCateDialog(Category category) {
         if (category != null) {
             CateDialog dialogFragment = CateDialog.newInstance(category);
             dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog_fragment");

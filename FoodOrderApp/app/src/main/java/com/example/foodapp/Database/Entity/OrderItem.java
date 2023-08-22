@@ -1,6 +1,6 @@
 package com.example.foodapp.Database.Entity;
 
-public class OrderItems {
+public class OrderItem {
     private int id;
     private Food food_id;
     private Order order_id;
@@ -37,4 +37,5 @@ public class OrderItems {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }

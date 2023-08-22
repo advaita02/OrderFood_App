@@ -6,16 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#E8E4E4"
-    android:id="@+id/fragment_product_detail">
 
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_id_food"
+        android:visibility="gone">
+
+    </TextView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_nav"
+        >
 
         <ImageView
-            android:id="@+id/product_id"
+            android:id="@+id/product_img"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="fitXY"
@@ -30,18 +40,21 @@
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/close_btnBack"
             android:scaleType="centerInside"
             android:src="@drawable/icon_close"
-
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"
+            tools:ignore="MissingConstraints" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/product_id">
+            app:layout_constraintTop_toBottomOf="@+id/product_img">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,47 +94,54 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/btn_increase_quantity"
+            android:id="@+id/btn_descerase_quantity"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerInside"
             android:src="@drawable/icon_minus"
-
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="82dp"
-            tools:layout_editor_absoluteY="497dp" />
+            android:layout_marginTop="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toStartOf="@+id/product_quanity_pick"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/product_quanity_pick"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="1"
+            android:layout_marginTop="60dp"
             android:gravity="center"
+            android:text="1"
             android:textColor="@color/black"
             android:textSize="30sp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="180dp"
-            tools:layout_editor_absoluteY="497dp" />
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:ignore="MissingConstraints" />
 
         <ImageButton
-            android:id="@+id/btn_decrease_quantity"
+            android:id="@+id/btn_increase_quantity"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="60dp"
             android:scaleType="centerInside"
             android:src="@drawable/icon_plus2"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="274dp"
-            tools:layout_editor_absoluteY="497dp" />
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/product_quanity_pick"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/btnAddToCart"
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
             android:layout_marginBottom="60dp"
-            android:text="Thêm vào giỏ hàng">
+            android:text="Thêm vào giỏ hàng"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="20dp">
 
         </Button>
     </androidx.constraintlayout.widget.ConstraintLayout>

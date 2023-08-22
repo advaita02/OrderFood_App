@@ -68,6 +68,63 @@ public class OrderDataSource {
 
         return newOrder;
     }
+
+    public ArrayList<Order> getOrdersByUser(int userId) throws ParseException {
+        ArrayList<Order> orders = new ArrayList<>();
+        open();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ORDER, null,
+                MySQLiteHelper.COLUMN_USER_ORDER + " = ?", new String[]{String.valueOf(userId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Order order = cursorToOrder(cursor);
+            orders.add(order);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        close();
+        return orders;
+    }
+
+    public ArrayList<Order> getOrdersByDate(String date) throws ParseException {
+        ArrayList<Order> orders = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String query = "SELECT * FROM " + MySQLiteHelper.TABLE_ORDER +
+                " WHERE " + MySQLiteHelper.COLUMN_DATE + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{date});
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Order order = cursorToOrder(cursor);
+            orders.add(order);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return orders;
+    }
+
+    public ArrayList<Order> getOrdersByDateRange(String startDate, String endDate) throws ParseException {
+        ArrayList<Order> orders = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_ORDER +
+                " WHERE " + COLUMN_DATE + " BETWEEN ? AND ?";
+
+        Cursor cursor = database.rawQuery(query, new String[]{startDate, endDate});
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()) {
+            Order order = cursorToOrder(cursor);
+            orders.add(order);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return orders;
+    }
+
+
+
     private Order cursorToOrder(Cursor cursor) throws ParseException {
         Order order = new Order();
         order.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID_ORDER)));
