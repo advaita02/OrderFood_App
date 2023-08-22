@@ -15,14 +15,15 @@ import com.example.foodapp.Database.Entity.Category;
 
 import java.util.List;
 
-public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateViewHolder>{
+public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateViewHolder> {
 
-    private List<Category>  mCategory;
+    private List<Category> mCategory;
 
     public void setData(List<Category> list) {
         this.mCategory = list;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public CateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,9 +44,11 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.CateViewHolder
         Category category = mCategory.get(position);
         byte[] img = category.getImg_cate();
         if (category != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-            holder.img_cateory.setImageBitmap(bitmap);
-            holder.name_category.setText(category.getName());
+            if (img != null) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                holder.img_cateory.setImageBitmap(bitmap);
+                holder.name_category.setText(category.getName());
+            }
         }
     }
 

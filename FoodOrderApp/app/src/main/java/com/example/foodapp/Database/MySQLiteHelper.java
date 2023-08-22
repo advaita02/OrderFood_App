@@ -71,11 +71,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_FOOD_ORDER + " integer references " + TABLE_FOOD + "(" + COLUMN_ID_FOOD + "), "
             + COLUMN_QUANTITY + " TEXT);";
 
-    private static final String ORDER_CREATE = "create table "
-            + TABLE_ORDER + "(" + COLUMN_ID_ORDER + " integer primary key autoincrement, "
-            + COLUMN_DATE + " TEXT, "
-            + COLUMN_USER_ORDER + " integer references " + TABLE_USER + "(" + COLUMN_ID_USER + "));";
-
     private static final String RATING_CREATE = "create table "
             + TABLE_RATING + "(" + COLUMN_ID_RATE + " integer primary key autoincrement, "
             + COLUMN_VALUE + " integer, "
@@ -92,16 +87,22 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_IMG_FOOD + " BLOB, "
             + COLUMN_CATEGORY + " integer references " + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + "));";
 
-    private static final String CATEGORY_CREATE = "create table "
-            + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + " integer primary key autoincrement, "
-            + COLUMN_IMG_CATE + " BLOB, "
-            + COLUMN_NAME_CATE + " text not null);";
-
     private static final String USER_CREATE = "create table "
             + TABLE_USER + "(" + COLUMN_ID_USER + " integer primary key autoincrement, "
             + COLUMN_NAME_USER + " TEXT, "
             + COLUMN_PN_USER + " integer, "
             + COLUMN_PW_USER + " TEXT);";
+
+    private static final String ORDER_CREATE = "create table "
+            + TABLE_ORDER + "(" + COLUMN_ID_ORDER + " integer primary key autoincrement, "
+            + COLUMN_DATE + " TEXT, "
+            + COLUMN_USER_ORDER + " integer references " + TABLE_USER + "(" + COLUMN_ID_USER + "));";
+
+    private static final String CATEGORY_CREATE = "create table "
+            + TABLE_CATEGORY + "(" + COLUMN_ID_CATE + " integer primary key autoincrement, "
+            + COLUMN_IMG_CATE + " BLOB, "
+            + COLUMN_NAME_CATE + " text not null);";
+
 
     private static final String ADMIN_CREATE = "create table "
             + TABLE_ADMIN + "(" + COLUMN_ID_ADMIN + " integer primary key autoincrement, "
