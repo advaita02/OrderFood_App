@@ -3,9 +3,14 @@ package com.example.foodapp.Database.DataSource;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_DATE;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_ID_ORDER;
 import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_ID_USER;
+import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_NAME_USER;
+import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_PN_USER;
+import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_PW_USER;
+import static com.example.foodapp.Database.MySQLiteHelper.COLUMN_USER_ORDER;
 import static com.example.foodapp.Database.MySQLiteHelper.TABLE_ORDER;
 import static com.example.foodapp.Database.MySQLiteHelper.TABLE_USER;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -46,15 +51,22 @@ public class OrderDataSource {
         dbHelper.close();
     }
 
-    public long insertOrder(Integer id, String date) {
-
+    public Order insertOrder(Integer id, String date) throws ParseException {
+        open();
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DATE, date);
         values.put(MySQLiteHelper.COLUMN_USER_ORDER, id);
 
         long insertId = database.insert(TABLE_ORDER, null, values);
 
-        return insertId;
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ORDER,
+                allColumns, COLUMN_ID_ORDER + " = " + insertId, null, null, null, null);
+        cursor.moveToFirst();
+        Order newOrder = cursorToOrder(cursor);
+        cursor.close();
+        close();
+
+        return newOrder;
     }
     private Order cursorToOrder(Cursor cursor) throws ParseException {
         Order order = new Order();
@@ -62,7 +74,7 @@ public class OrderDataSource {
         order.setDate(dateFormat.parse(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE))));
 
         User user = new User();
-        user.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID_USER)));
+        user.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ORDER)));
         order.setUser(user);
         return order;
     }
@@ -70,4 +82,74 @@ public class OrderDataSource {
         return database.query(TABLE_ORDER, null, null,
                 null, null, null, null);
     }
+    public ArrayList<Order> getOrdersByUserId(Integer userId) throws ParseException {
+        ArrayList<Order> orders = new ArrayList<>();
+        open();
+
+        Cursor cursor = database.query(
+                MySQLiteHelper.TABLE_ORDER,
+                allColumns,
+                MySQLiteHelper.COLUMN_USER_ORDER + " = ?",
+                new String[] { String.valueOf(userId) },
+                null,
+                null,
+                null
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Order order = cursorToOrder(cursor);
+            orders.add(order);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        close();
+
+        return orders;
+    }
+    @SuppressLint("Range")
+    public int getLatestOrderId() {
+        open();
+        Cursor cursor = database.query(
+                MySQLiteHelper.TABLE_ORDER,
+                new String[] { MySQLiteHelper.COLUMN_ID_ORDER },
+                null,
+                null,
+                null,
+                null,
+                MySQLiteHelper.COLUMN_ID_ORDER + " DESC",
+                "1"
+        );
+        int latestOrderId = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            latestOrderId = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID_ORDER));
+            cursor.close();
+        }
+        close();
+        return latestOrderId;
+    }
+//    @SuppressLint("Range")
+//    public Order getOrderById(int userId) throws ParseException {
+//        open();
+//        String[] columns = {COLUMN_ID_ORDER, COLUMN_DATE, COLUMN_USER_ORDER};
+//        String selection = COLUMN_USER_ORDER + " = ?";
+//        String[] selectionArgs = {String.valueOf(userId)};
+//
+//        Cursor cursor = database.query(TABLE_ORDER, columns, selection, selectionArgs, null, null, null);
+//
+//        Order order = null;
+//        if (cursor.moveToFirst()) {
+//            order = new Order();
+//            order.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID_ORDER)));
+//            order.setDate(dateFormat.parse(cursor.getString(cursor.getColumnIndex(COLUMN_DATE))));
+//            User user = new User();
+//            user.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ORDER)));
+//            order.setUser(user);
+//
+//        }
+//
+//        cursor.close();
+//        return order;
+//    }
 }

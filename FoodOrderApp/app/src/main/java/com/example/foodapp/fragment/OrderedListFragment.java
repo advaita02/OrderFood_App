@@ -1,5 +1,7 @@
 package com.example.foodapp.fragment;
 
+import static com.example.foodapp.Database.MySQLiteHelper.TABLE_USER;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +30,7 @@ import com.example.foodapp.Database.Entity.Category;
 import com.example.foodapp.Database.Entity.Food;
 import com.example.foodapp.Database.Entity.Order;
 import com.example.foodapp.Database.Entity.User;
+import com.example.foodapp.LoginActivity;
 import com.example.foodapp.R;
 import com.example.foodapp.databinding.FragmentOrderedListBinding;
 
@@ -37,6 +42,9 @@ public class OrderedListFragment extends Fragment {
     RecyclerView recyclerView;
     OrderDataSource orderDataSource;
     OrderAdapter orderAdapter;
+    Context context;
+
+    UserDataSource userDataSource;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,8 @@ public class OrderedListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        context=container.getContext();
+        userDataSource = new UserDataSource(context);
         return inflater.inflate(R.layout.fragment_ordered_list, container, false);
     }
 
@@ -63,22 +73,13 @@ public class OrderedListFragment extends Fragment {
     public void displayOrders() throws ParseException {
         orderDataSource = new OrderDataSource(getActivity());
         orderDataSource.open();
-        Cursor cursor = orderDataSource.getAllOrders();
-        ArrayList<Order> orders = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(0);
-            Date date = OrderDataSource.dateFormat.parse(cursor.getString(1));
-            int id_cus = cursor.getInt(2);
-
-            User user = getUser(id_cus);
-            orders.add(new Order(id,date,user));
-            cursor.moveToNext();
-        }
-        cursor.close();
+        ArrayList<Order> orders = orderDataSource.getOrdersByUserId(userDataSource.getIdUser(LoginActivity.getPhoneNum()));
         orderAdapter = new OrderAdapter(getActivity(), R.layout.orderlist_item, orders, orderDataSource);
         recyclerView.setAdapter(orderAdapter);
+
     }
+
+
     private User getUser(int userId) {
         UserDataSource userDataSource = new UserDataSource(getActivity());
         userDataSource.open();
@@ -91,5 +92,16 @@ public class OrderedListFragment extends Fragment {
         super.onDestroyView();
         orderDataSource.close();
     }
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_orderlist,fragment);
+        fragmentTransaction.commit();
+    }
+//    public void fromCartToOrder(){
+//        for(Food c : CartFragment.getFoods()){
+//            orderDataSource.insertOrder(c.)
+//        }
+//    }
 
 }

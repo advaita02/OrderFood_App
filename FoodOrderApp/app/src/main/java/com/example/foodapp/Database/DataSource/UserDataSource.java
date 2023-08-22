@@ -92,7 +92,7 @@ public class UserDataSource {
     }
     @SuppressLint("Range")
     public User getUserById(int userId) {
-        database = dbHelper.getReadableDatabase();
+        open();
         String[] columns = {COLUMN_ID_USER, COLUMN_NAME_USER, COLUMN_PN_USER, COLUMN_PW_USER};
         String selection = COLUMN_ID_USER + " = ?";
         String[] selectionArgs = {String.valueOf(userId)};
@@ -170,6 +170,21 @@ public class UserDataSource {
 
         sqLiteDatabase.update(TABLE_USER,values,whereClause,whereArgs);
         sqLiteDatabase.close();
+    }
+    public Integer getIdUser (Integer pn){
+        SQLiteDatabase db = this.dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_USER + " where " + COLUMN_PN_USER
+                + " = ? ", new String[]{Integer.toString(pn)});
+
+        if (cursor.moveToFirst()) {
+            @SuppressLint("Range")
+            int idUser = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ID_USER)));
+            cursor.close();
+            return idUser;
+        } else {
+            cursor.close();
+            return null;
+        }
     }
 
 }

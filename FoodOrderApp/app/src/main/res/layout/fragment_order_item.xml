@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.CartFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:background="@drawable/background_profile"
+            android:text="Chi tiết đơn hàng" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderDetailList"
+            android:layout_width="427dp"
+            android:layout_height="443dp" />
+
+    </LinearLayout>
+
+</FrameLayout>

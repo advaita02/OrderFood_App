@@ -46,7 +46,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String TABLE_ORDER_ITEM = "order_item";
     public static final String COLUMN_ID_ORDER_ITEM = "id_order_items";
     public static final String COLUMN_ORDER = "order_order_item";
-    public static final String COLUMN_FOOD_ORDER = "food";
+    public static final String COLUMN_FOOD_ORDER = "id_food_items";
     public static final String COLUMN_QUANTITY = "quantity";
 
 
@@ -69,7 +69,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + TABLE_ORDER_ITEM + "(" + COLUMN_ID_ORDER_ITEM + " integer primary key autoincrement, "
             + COLUMN_ORDER + " integer references " + TABLE_ORDER + "(" + COLUMN_ID_ORDER + "), "
             + COLUMN_FOOD_ORDER + " integer references " + TABLE_FOOD + "(" + COLUMN_ID_FOOD + "), "
-            + COLUMN_QUANTITY + " TEXT);";
+            + COLUMN_QUANTITY + " integer);";
 
     private static final String ORDER_CREATE = "create table "
             + TABLE_ORDER + "(" + COLUMN_ID_ORDER + " integer primary key autoincrement, "

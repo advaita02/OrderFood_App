@@ -29,11 +29,11 @@ public class Food {
         this.price = price_food;
     }
 
-    public Food(String name_food, int price_food,int quantity) {
+    public Food(int id,String name_food, int price_food,int quantity) {
+        this.id = id;
         this.name = name_food;
         this.price = price_food;
-
-        this.setQuantity(quantity);
+        this.quantity = quantity;
     }
 
     public Food() {
