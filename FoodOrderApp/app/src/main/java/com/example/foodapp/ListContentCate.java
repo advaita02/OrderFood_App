@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ListContentCate {
     private String name_content;
+
     private List<Category> cates;
 
     public ListContentCate(String name_content, List<Category> cates) {

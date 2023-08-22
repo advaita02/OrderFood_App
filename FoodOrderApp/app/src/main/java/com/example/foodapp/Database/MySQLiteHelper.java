@@ -162,6 +162,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         sqLiteDatabase.delete(TABLE_CATEGORY,null, null);
         sqLiteDatabase.close();
     }
+    public Cursor GetImageCursor(int foodId) {
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        String[] projection = { "img_food" }; // Thay "image_column_name" bằng tên cột chứa hình ảnh
+        String selection = "id_food = ?";
+        String[] selectionArgs = { String.valueOf(foodId) };
+
+        return db.query(TABLE_FOOD, projection, selection, selectionArgs, null, null, null);
+    }
 
 }

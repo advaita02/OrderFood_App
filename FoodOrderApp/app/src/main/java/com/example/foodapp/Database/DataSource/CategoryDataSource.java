@@ -24,6 +24,7 @@ public class CategoryDataSource {
         database = dbHelper.getWritableDatabase();
     }
 
+
     public void close() {
         dbHelper.close();
     }
@@ -86,8 +87,9 @@ public class CategoryDataSource {
         return category;
     }
 
+
     @SuppressLint("Range")
-    private Category cursorToCategory(Cursor cursor) {
+    public Category cursorToCategory(Cursor cursor) {
         Category category = new Category();
         category.setId(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID_CATE)));
         category.setName(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_NAME_CATE)));

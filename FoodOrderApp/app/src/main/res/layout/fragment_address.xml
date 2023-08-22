@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#CAC9C9"
-    android:id="@+id/fragment_address_pickup">
+    android:background="#CAC9C9">
 
 
 

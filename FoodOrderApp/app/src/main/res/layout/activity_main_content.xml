@@ -153,16 +153,22 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/rcv_list_content_food">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/rcv_list_content">
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rcv_list_content_food">
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/rcv_list_content_food">-->
 
-            </androidx.recyclerview.widget.RecyclerView>
+<!--            </androidx.recyclerview.widget.RecyclerView>-->
         </LinearLayout>
     </ScrollView>
 

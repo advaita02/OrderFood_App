@@ -29,6 +29,7 @@
             android:exported="false"/>
         <activity android:name=".RegisActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".FoodDetail" />
         <activity android:name=".Admin.AdminLoginActivity" />
         <activity
             android:name=".WelcomeActivity"
