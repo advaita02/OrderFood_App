@@ -112,11 +112,13 @@ public class ActivityStatisticDateOrder extends AppCompatActivity {
 
     public void showOrderDate() throws ParseException {
         orderDataSource = new OrderDataSource(this);
+        orderDataSource.open();
         String fromDate = txtFromDate.getText().toString();
         String toDate = txtToDate.getText().toString();
 
         if (checkDate(fromDate, toDate)) {
             ArrayList<Order> listUserOrder = orderDataSource.getOrdersByDateRange(fromDate, toDate);
+            orderDataSource.close();
             orderAdapter = new OrderStatisticAdapter(this,
                     R.layout.order_user_statistic_item, listUserOrder, orderDataSource);
             recyclerView.setAdapter(orderAdapter);

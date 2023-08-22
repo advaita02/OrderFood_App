@@ -95,7 +95,6 @@ public class OrderDataSource {
 
     public ArrayList<Order> getOrdersByDateRange(String startDate, String endDate) throws ParseException {
         ArrayList<Order> orders = new ArrayList<>();
-        open();
         String query = "SELECT * FROM " + TABLE_ORDER +
                 " WHERE " + COLUMN_DATE + " BETWEEN ? AND ?";
 

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.foodapp.Admin.StatisticActivity.ActivityListBestSelling;
 import com.example.foodapp.Admin.StatisticActivity.ActivityStatisticDateOrder;
 import com.example.foodapp.Admin.StatisticActivity.ActivityStatisticUser;
 import com.example.foodapp.R;
@@ -41,6 +42,13 @@ public class ManageOrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ActivityStatisticDateOrder.class));
+            }
+        });
+
+        bestselling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ActivityListBestSelling.class));
             }
         });
     }

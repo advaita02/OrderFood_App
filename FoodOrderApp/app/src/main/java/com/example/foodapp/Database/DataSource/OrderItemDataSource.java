@@ -72,6 +72,8 @@ public class OrderItemDataSource {
 
         Food food = new Food();
         food.setId(cursor.getInt(2));
+        orderItem.setFood_id(food);
+
         orderItem.setQuantity(Integer.parseInt(cursor.getString(3)));
         return orderItem;
     }
