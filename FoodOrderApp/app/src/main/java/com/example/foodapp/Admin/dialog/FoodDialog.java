@@ -30,7 +30,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.foodapp.Admin.AdapterAdmin.CategorySpinnerAdapter;
-import com.example.foodapp.Database.Constants;
+import com.example.foodapp.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;

@@ -77,6 +77,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     public int getItemCount() {
         return users.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNameUser, txtNumberPhone;
         ImageButton flow_menu;

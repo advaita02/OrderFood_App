@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.Admin.AdapterAdmin.AdminFoodAdapter;
 import com.example.foodapp.Admin.dialog.FoodDialog;
-import com.example.foodapp.Database.Constants;
+import com.example.foodapp.Constants;
 import com.example.foodapp.Database.DataSource.CategoryDataSource;
 import com.example.foodapp.Database.DataSource.FoodDataSource;
 import com.example.foodapp.Database.Entity.Category;

@@ -109,8 +109,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + COLUMN_NAME_ADMIN + " TEXT, "
             + COLUMN_PW_ADMIN + " TEXT);";
 
-//    String themAdmin = "Insert into admin (name_admin, pw_admin) values('staff_admin', 123);";
-
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

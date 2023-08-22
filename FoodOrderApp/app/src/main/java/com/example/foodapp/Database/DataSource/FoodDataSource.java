@@ -1,5 +1,6 @@
 package com.example.foodapp.Database.DataSource;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -75,4 +76,35 @@ public class FoodDataSource {
         return database.query(MySQLiteHelper.TABLE_FOOD, null, null,
                 null, null, null, null);
     }
+
+//    public ArrayList<Food> getBestSellingFoods() {
+//        ArrayList<Food> bestSellingFoods = new ArrayList<>();
+//
+//        String query = "SELECT " +
+//                MySQLiteHelper.COLUMN_FOOD_ORDER + ", " +
+//                "SUM(" + MySQLiteHelper.COLUMN_QUANTITY + ") as totalQuantity " +
+//                "FROM " + MySQLiteHelper.TABLE_ORDER_ITEM +
+//                " GROUP BY " + MySQLiteHelper.COLUMN_FOOD_ORDER +
+//                " ORDER BY totalQuantity DESC LIMIT 10";  // Lấy 10 món ăn bán chạy nhất
+//
+//        Cursor cursor = database.rawQuery(query, null);
+//        cursor.moveToFirst();
+//
+//        while (!cursor.isAfterLast()) {
+//            @SuppressLint("Range") int foodID = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_FOOD_ORDER));
+//            @SuppressLint("Range") int totalQuantity = cursor.getInt(cursor.getColumnIndex("totalQuantity"));
+//
+//            Food food = getFoodById(foodID);  // Hàm này cần phải có để lấy thông tin món ăn bằng ID
+//            if (food != null) {
+//                food.setTotalQuantity(totalQuantity);
+//                bestSellingFoods.add(food);
+//            }
+//
+//            cursor.moveToNext();
+//        }
+//
+//        cursor.close();
+//        return bestSellingFoods;
+//    }
+
 }
